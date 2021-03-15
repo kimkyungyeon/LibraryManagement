@@ -1,5 +1,20 @@
+select * from membinfo;
+-- membinfo insert 테스트
+insert into membinfo (membaccount, membname, membbirth, membtel, membphone, membaddr) values ('kykim', '김경연', '19940801','053-323-1241','010-6510-7277','대구');
+delete from membinfo where membname ='김경연';
+
+select categoryno, bookcategory from bookcategory;
+select bookno,booktitle,rentYN,categoryno,count,totalcount  from bookinfo;
+select * from rentinfo r ;
+
+select * from bookcategory b ;
+select * from rentinfo r2 ;
+select rentno , bookno, overdate, rentdate from rentInfo where membno =12001 and returndate is null;
+
+select rentno , bookno,  overdate, rentdate from rentInfo where membno = 12001 and returndate is null;
+
 -- 1.main화면 형식 좌측 회원목록 
-select membno as 회원번호, membaccount as 회원계정,membname as 회원이름, membtel as 회원번호, membphone as 휴대전화
+select membno as 회원번호, membaccount as 회원계정,membname as 회원이름, membbirth as 생년월일 ,membtel as 회원번호, membphone as 휴대전화
 from membinfo m ;
 
 -- 1.main화면 형식 좌측 회원목록 검색(회원번호)
