@@ -4,7 +4,7 @@ public class BookInfo {
 	private int bookNo;
 	private String bookTitle;
 	private boolean rentYN;
-	private int categoryNo;
+	private BookCategory categoryNo;
 	private int count;
 	private int totalcount;
 	
@@ -29,7 +29,7 @@ public class BookInfo {
 		this.bookTitle = bookTitle;
 	}
 
-	public BookInfo(int bookNo, String bookTitle, boolean rentYN, int categoryNo, int count, int totalcount) {
+	public BookInfo(int bookNo, String bookTitle, boolean rentYN, BookCategory categoryNo, int count, int totalcount) {
 		this.bookNo = bookNo;
 		this.bookTitle = bookTitle;
 		this.rentYN = rentYN;
@@ -82,11 +82,11 @@ public class BookInfo {
 //		}
 //		return s;
 //	}
-	public int getCategoryNo() {
+	public BookCategory getCategoryNo() {
 		return categoryNo;
 	}
 
-	public void setCategoryNo(int categoryNo) {
+	public void setCategoryNo(BookCategory categoryNo) {
 		this.categoryNo = categoryNo;
 	}
 

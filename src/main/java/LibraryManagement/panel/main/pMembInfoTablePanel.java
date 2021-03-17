@@ -1,4 +1,4 @@
-package LibraryManagement.panel.main;
+  package LibraryManagement.panel.main;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -21,13 +21,8 @@ public class pMembInfoTablePanel extends AbstractCustomTablePanel<MembInfo> impl
 	
 	public pMembInfoTablePanel() {
 		rentList = new RentInfoTablePanel();
-		initialize();
-	}
-	private void initialize() {
 		table.addMouseListener(this);
-		
 	}
-	
 	
 	@Override
 	public void initList() {
