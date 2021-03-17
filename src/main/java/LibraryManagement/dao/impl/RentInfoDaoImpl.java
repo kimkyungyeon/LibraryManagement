@@ -27,7 +27,22 @@ public class RentInfoDaoImpl implements RentInfoDao {
 
 	@Override
 	public List<RentInfo> selectRentInfoByAll() {
-		
+		String sql = "select  rentno, membno, bookno, rentdate, returndate, overdate from rentInfo ";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()){
+			if(rs.next()) {
+				List<RentInfo> list = new ArrayList<RentInfo>();{
+					do {
+						list.add(getRentInfo(rs));
+					} while(rs.next());
+					return list;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 
@@ -39,7 +54,9 @@ public class RentInfoDaoImpl implements RentInfoDao {
 
 	@Override
 	public List<RentInfo> selectRentInfoByMembNo(MembInfo membInfo) {
-		String sql = "select rentno , membno , bookno, rentdate, returndate , overdate from rentInfo where membno = ? and returndate is null";
+		String sql = "SELECT r.rentno , r.membno, r.bookno, b.booktitle, r.overdate , r.rentdate , r.returndate "
+				+ " FROM bookinfo b JOIN rentinfo r" 
+				+ "	ON b.bookno = r.bookno where r.membno = ? and returndate is null";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setInt(1, membInfo.getMembno());
@@ -63,12 +80,12 @@ public class RentInfoDaoImpl implements RentInfoDao {
 	}
 
 	private RentInfo getRentInfo(ResultSet rs) throws SQLException {
-		int rentNo = rs.getInt("rentno");
-		MembInfo membNo = new MembInfo(rs.getInt("membno"));
-		BookInfo bookNo = new BookInfo(rs.getInt("bookno"));
-		Date rentDate = rs.getDate("rentdate");
-		Date returnDate = rs.getDate("returndate");
-		int overDate = rs.getInt("overdate");
+		int rentNo = rs.getInt("r.rentno");
+		MembInfo membNo = new MembInfo(rs.getInt("r.membno"));
+		BookInfo bookNo = new BookInfo(rs.getInt("r.bookno"),rs.getString("b.booktitle"));
+		Date rentDate = rs.getDate("r.rentdate");
+		Date returnDate = rs.getDate("r.returndate");
+		int overDate = rs.getInt("r.overdate");
 		
 		return new RentInfo (rentNo , membNo, bookNo, rentDate, returnDate, overDate);
 	}

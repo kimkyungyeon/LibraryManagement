@@ -3,6 +3,7 @@ package LibraryManagement.dao;
 import java.util.List;
 
 import LibraryManagement.dto.MembInfo;
+import LibraryManagement.dto.SubMembInfo;
 
 public interface MembInfoDao {
 	List<MembInfo> selectMembInfoByAll();

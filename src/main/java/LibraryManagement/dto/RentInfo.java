@@ -55,6 +55,7 @@ public class RentInfo {
 		this.membNo = membNo;
 	}
 
+	
 	public BookInfo getBookNo() {
 		return bookNo;
 	}

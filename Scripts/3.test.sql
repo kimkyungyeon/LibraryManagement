@@ -6,7 +6,7 @@ delete from membinfo where membname ='김경연';
 select categoryno, bookcategory from bookcategory;
 select bookno,booktitle,rentYN,categoryno,count,totalcount  from bookinfo;
 select * from rentinfo r ;
-
+insert into rentinfo  values (3, 12003, 40006, now(),null,0);
 select * from bookcategory b ;
 select * from rentinfo r2 ;
 select rentno , bookno, overdate, rentdate from rentInfo where membno =12001 and returndate is null;

@@ -23,7 +23,7 @@ public class MembInfo {
 		this.membAddr = membAddr;
 	}
 
-
+	
 
 
 	public MembInfo() {

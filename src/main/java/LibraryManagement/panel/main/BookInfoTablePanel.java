@@ -5,9 +5,10 @@ import javax.swing.SwingConstants;
 import LibraryManagement.dto.BookInfo;
 import LibraryManagement.panel.AbstractCustomTablePanel;
 import LibraryManagement.service.BookInfoService;
+import LibraryManagement.service.MainService;
 
 public class BookInfoTablePanel extends AbstractCustomTablePanel<BookInfo> {
-	private BookInfoService service;
+	private MainService service;
 
 	@Override
 	public void initList() {
@@ -35,7 +36,7 @@ public class BookInfoTablePanel extends AbstractCustomTablePanel<BookInfo> {
 			};
 	}
 	
-	public void setService(BookInfoService service) {
+	public void setService(MainService service) {
 		this.service = service;
 	}
 }

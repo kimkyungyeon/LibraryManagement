@@ -4,16 +4,18 @@ import LibraryManagement.dto.BookInfo;
 import LibraryManagement.dto.MembInfo;
 import LibraryManagement.dto.RentInfo;
 import LibraryManagement.panel.AbstractCustomTablePanel;
+import LibraryManagement.service.MainService;
 import LibraryManagement.service.RentInfoService;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
 public class RentInfoTablePanel extends AbstractCustomTablePanel<RentInfo>  {
-	private RentInfoService service;
+	private MainService service;
 	
 	public RentInfoTablePanel() {
 		initialize();
@@ -26,7 +28,14 @@ public class RentInfoTablePanel extends AbstractCustomTablePanel<RentInfo>  {
 
 	@Override
 	public void initList() {
+		list = null;
+//		list= service.showRentInfoAll();
+		
+	}
 	
+	public void blankTable() {
+		Object[][] data = new Object[0][];
+		
 	}
 	
 	//해당하는 리스트 초기화
@@ -50,10 +59,10 @@ public class RentInfoTablePanel extends AbstractCustomTablePanel<RentInfo>  {
 	@Override
 	public Object[] toArray(RentInfo t) {
 	
-		return new Object[] {t.getRentNo(), t.getBookNo(), t.getRentBookTitle(), t.getOverDate(), t.getRentDate()} ;
+		return new Object[] {t.getRentNo(), t.getBookNo().getBookNo(), t.getRentBookTitle(), t.getOverDate(), t.getRentDate()} ;
 	}
 	
-	public void setSerivce(RentInfoService serivce) {
+	public void setService(MainService service) {
 		this.service = service;
 	}
 	

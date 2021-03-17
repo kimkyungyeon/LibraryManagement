@@ -1,17 +1,17 @@
 package LibraryManagement.dao.impl;
 
 import java.sql.Connection;
-import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-
+import java.util.Date;
 import java.util.List;
 
 import LibraryManagement.dao.MembInfoDao;
 import LibraryManagement.dto.MembInfo;
+import LibraryManagement.dto.SubMembInfo;
 import LibraryManagement.util.JdbcUtil;
 
 public class MembInfoDaoImpl implements MembInfoDao {
@@ -87,15 +87,29 @@ public class MembInfoDaoImpl implements MembInfoDao {
 
 	@Override
 	public List<MembInfo> selectMembInfoByMembName(MembInfo membInfo) {
-		// TODO Auto-generated method stub
+		String sql = "select membno , membaccount , membname, membbirth , "
+				+ " membtel , membphone, membaddr from membinfo where membname like ?";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setString(1,"%"+membInfo.getMembName()+"%");
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) {
+					List<MembInfo> list = new ArrayList<MembInfo>();
+					do {
+						list.add(getMembInfo(rs));
+					} while(rs.next());
+					return list;
+				}
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 
-	@Override
-	public List<MembInfo> selectMembInfoByMembAccount(MembInfo membInfo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public int insertMembInfo(MembInfo membInfo) {
@@ -130,6 +144,29 @@ public class MembInfoDaoImpl implements MembInfoDao {
 	public int deleteMembInfo(MembInfo membInfo) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<MembInfo> selectMembInfoByMembAccount(MembInfo membInfo) {
+		String sql =  "select membno , membaccount , membname, membbirth , "
+				+ " membtel , membphone, membaddr from membinfo where membaccount like ?";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setString(1, "%"+membInfo.getMembAccount()+ "%");
+			try(ResultSet rs = pstmt.executeQuery()){	
+				if(rs.next()) {
+					List<MembInfo> list = new ArrayList<MembInfo>();
+					do {
+						list.add(getMembInfo(rs));
+					} while(rs.next());
+					return list;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

@@ -24,6 +24,11 @@ public class BookInfo {
 		this.rentYN = rentYN;
 	}
 
+	public BookInfo(int bookNo, String bookTitle) {
+		this.bookNo = bookNo;
+		this.bookTitle = bookTitle;
+	}
+
 	public BookInfo(int bookNo, String bookTitle, boolean rentYN, int categoryNo, int count, int totalcount) {
 		this.bookNo = bookNo;
 		this.bookTitle = bookTitle;

@@ -9,11 +9,15 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import LibraryManagement.dao.impl.MembInfoDaoImpl;
 import LibraryManagement.dto.MembInfo;
+import LibraryManagement.dto.SubMembInfo;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MembInfoDaoTest {
 	private static MembInfoDao dao = MembInfoDaoImpl.getInstance();
 
@@ -30,7 +34,7 @@ public class MembInfoDaoTest {
 	}
 
 	@Test
-	public void testSelectMembInfoByAll() {
+	public void test04SelectMembInfoByAll() {
 		System.out.println("testSelectMembInfoByAll");
 		List<MembInfo> membInfoList = dao.selectMembInfoByAll();
 		Assert.assertNotNull(membInfoList);
@@ -41,7 +45,7 @@ public class MembInfoDaoTest {
 	}
 
 	@Test
-	public void testSelectMembInfoByMembNo() {
+	public void test03SelectMembInfoByMembNo() {
 		System.out.println("testSelectMembInfoByMembNo");
 		MembInfo newMembInfo = new MembInfo(12001);
 		List<MembInfo> membInfoListbyNo = dao.selectMembInfoByMembNo(newMembInfo);
@@ -50,19 +54,28 @@ public class MembInfoDaoTest {
 		
 		
 	}
-//
-//	@Test
-//	public void testSelectMembInfoByMembName() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testSelectMembInfoByMembAccount() {
-//		fail("Not yet implemented");
-//	}
+
+	@Test
+	public void test02SelectMembInfoByMembName() {
+		System.out.println("testSelectMembInfoByMembName");
+		MembInfo newMembInfo = new MembInfo("길");
+		List<MembInfo> membInfoListByName = dao.selectMembInfoByMembName(newMembInfo);
+		Assert.assertNotNull(membInfoListByName);
+		System.out.println(membInfoListByName);
+	}
+
+	@Test
+	public void test01SelectMembInfoByMembAccount() {
+		System.out.println("testSelectMembInfoByMembAccount");
+		MembInfo newMembInfo = new SubMembInfo("k");
+		List<MembInfo> membInfoListByAccount = dao.selectMembInfoByMembAccount(newMembInfo);
+		Assert.assertNotNull(membInfoListByAccount);
+		
+		System.out.println(membInfoListByAccount);
+	}
 	
 //	membno,membaccount,membName,membbirth,membtel,membphone,membaddr
-	@Test
+//	@Test
 	public void testInsertMembInfo() {
 		System.out.println("testInsertMembInfo");
 		
@@ -74,13 +87,13 @@ public class MembInfoDaoTest {
 }
 
 //	@Test
-//	public void testUpdateMembInfo() {
-//		fail("Not yet implemented");
-//	}
-//
+	public void testUpdateMembInfo() {
+		fail("Not yet implemented");
+	}
+
 //	@Test
-//	public void testDeleteMembInfo() {
-//		fail("Not yet implemented");
-//	}
+	public void testDeleteMembInfo() {
+		fail("Not yet implemented");
+	}
 
 }

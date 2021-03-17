@@ -7,17 +7,38 @@ import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class pBookSearch extends JPanel {
+public class pBookSearch extends JPanel implements ActionListener {
 	private JTextField tfBookSearch;
-
+	private JComboBox<String> cbBookSearchBy;
+	private String tfString;
+	private BookInfoTablePanel pBookTable;
 	/**
 	 * Create the panel.
 	 */
-	public pBookSearch() {
-		
+	public pBookSearch() {	
+		pBookTable = new BookInfoTablePanel();
 		initialize();
 	}
+	
+	public BookInfoTablePanel getpBookTable() {
+		return pBookTable;
+	}
+	
+	public void setpBookTable(BookInfoTablePanel pBookTable) {
+		this.pBookTable = pBookTable;
+	}
+	
+	private void addData() {
+		String[] searchKey = {"도서번호", "도서제목", "도서구분"};
+		
+		for(String s : searchKey) {
+			cbBookSearchBy.addItem(s);
+		}
+	}
+	
 	private void initialize() {
 		setLayout(new GridLayout(0, 3, 5, 5));
 		
@@ -26,12 +47,60 @@ public class pBookSearch extends JPanel {
 		lblBookSearch.setFont(new Font("굴림", Font.PLAIN, 15));
 		add(lblBookSearch);
 		
-		JComboBox cbBookSearchBy = new JComboBox();
+		cbBookSearchBy = new JComboBox();
+		cbBookSearchBy.addActionListener(this);
+		
+		addData();
 		add(cbBookSearchBy);
 		
 		tfBookSearch = new JTextField();
+		tfBookSearch.addActionListener(this);
 		tfBookSearch.setColumns(10);
 		add(tfBookSearch);
 	}
 
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == cbBookSearchBy) {
+			actionPerformedCbBookSearchBy(e);
+		}
+		if (e.getSource() == tfBookSearch) {
+			if(tfString.equals("도서번호")) {
+				try {
+					actionPerformedTfBookSearchByNo(e);
+				}catch (Exception e1) {
+					pBookTable.initList();
+					pBookTable.setList();
+				}
+			}
+			if(tfString.equals("도서제목")) {
+				actionPerformedTfBookSearchByTitle(e);
+			}
+			if(tfString.equals("도서구분")) {
+				actionPerformedTfBookSearchByCategory(e);
+			}
+		}
+	}
+	//콤보박스 도서구부능로 선택후 검색
+	private void actionPerformedTfBookSearchByCategory(ActionEvent e) {
+		
+	}
+
+	//콤보박스 도서제목으로 선택후 검색
+	private void actionPerformedTfBookSearchByTitle(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	//콤보박스 도서번호로 선택후 검색
+	private void actionPerformedTfBookSearchByNo(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void actionPerformedCbBookSearchBy(ActionEvent e) {
+		tfString = cbBookSearchBy.getSelectedItem().toString();
+		
+	}
+	protected void actionPerformedTfBookSearch(ActionEvent e) {
+	}
 }

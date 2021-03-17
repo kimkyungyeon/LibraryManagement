@@ -9,26 +9,25 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import LibraryManagement.panel.main.BookInfoTablePanel;
+import LibraryManagement.panel.main.RentInfoTablePanel;
 import LibraryManagement.panel.main.pBookSearch;
 import LibraryManagement.panel.main.pMainBtns;
 import LibraryManagement.panel.main.pMembInfoTablePanel;
 import LibraryManagement.panel.main.pMembSearch;
 import LibraryManagement.service.BookInfoService;
+import LibraryManagement.service.MainService;
 import LibraryManagement.service.MembInfoService;
 import LibraryManagement.service.RentInfoService;
-import LibraryManagement.panel.main.RentInfoTablePanel;
 
 public class LibraryManagementMain extends JFrame {
 
 	private JPanel contentPane;
-	private MembInfoService membService;
-	private BookInfoService bookService;
-	private RentInfoService rentService;
+	private MainService service;
 	private pMembInfoTablePanel pMembInfoTable;
 	private BookInfoTablePanel pBookInfoTable;
 	private pMembSearch pMainMembSearch;
 	private RentInfoTablePanel pMainRentTable;
-	/**
+	/**   
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
@@ -56,9 +55,8 @@ public class LibraryManagementMain extends JFrame {
 	 * Create the frame.
 	 */
 	public LibraryManagementMain() {
-		membService = new MembInfoService();
-		bookService = new BookInfoService();
-		rentService = new RentInfoService();
+		service = new MainService();
+		
 		initialize();
 
 	}
@@ -87,7 +85,7 @@ public class LibraryManagementMain extends JFrame {
 		pLeft.add(pMainMembSearch, BorderLayout.NORTH);
 		
 		pMembInfoTable = pMainMembSearch.getEx();
-		pMembInfoTable.setService(membService);
+		pMembInfoTable.setService(service);
 //		pMembInfoTable.selectByNoList(12001);
 //		pMembInfoTable.initList();
 //		pMembInfoTable.setList();
@@ -103,7 +101,7 @@ public class LibraryManagementMain extends JFrame {
 		pRight.add(pMainBookSearch, BorderLayout.NORTH);
 		
 		pBookInfoTable = new BookInfoTablePanel();
-		pBookInfoTable.setService(bookService);
+		pBookInfoTable.setService(service);
 		pBookInfoTable.loadData();
 		pRight.add(pBookInfoTable, BorderLayout.CENTER);
 		
@@ -111,10 +109,17 @@ public class LibraryManagementMain extends JFrame {
 		
 	
 //		pMainRentTable = 
-		pMainRentTable = new RentInfoTablePanel();
-		pMainRentTable.setSerivce(rentService);
+		
+		pMainRentTable = pMembInfoTable.getRentList(); 
+		pMainRentTable.setService(service);
+		System.out.println(1);
+		pMainRentTable.initList();
+		pMainRentTable.blankTable();
 //		pMainRentTable.selectRentInfoByMembNo(membinfo);
+		
 		contentPane.add(pMainRentTable, BorderLayout.SOUTH);
+
+		
 	}
 
 }
