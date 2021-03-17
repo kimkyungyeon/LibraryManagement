@@ -45,4 +45,8 @@ public class MainService {
 		return bookDao.selectBookInfoByAll();
 	}
 	
+	public List<BookInfo> showBookInfoByNo(BookInfo	bookInfo){
+		return bookDao.selectBookInfoByNo(bookInfo);
+	}
+	
 }

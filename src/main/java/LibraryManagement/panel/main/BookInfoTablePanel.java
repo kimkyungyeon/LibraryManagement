@@ -1,5 +1,7 @@
 package LibraryManagement.panel.main;
 
+import java.util.ArrayList;
+
 import javax.swing.SwingConstants;
 
 import LibraryManagement.dto.BookInfo;
@@ -14,6 +16,16 @@ public class BookInfoTablePanel extends AbstractCustomTablePanel<BookInfo> {
 	public void initList() {
 		list = service.showBookInfoAll();
 
+	}
+	//콤보박스 도서번호 선택후 검색
+	public void selectByNoList(int bookNo) {
+//		list = new ArrayList<BookInfo>();
+		System.out.println(service);
+		list = service.showBookInfoByNo(new BookInfo(bookNo));
+	}
+	
+	public void selectByTitleList(String bookTitle) {
+		
 	}
 
 	@Override
@@ -32,7 +44,7 @@ public class BookInfoTablePanel extends AbstractCustomTablePanel<BookInfo> {
 	@Override
 	public Object[] toArray(BookInfo t) {
 		return new Object[] {
-				t.getBookNo(), t.getBookTitle(), t.getCategoryNo(), t.isRentYN()
+				t.getBookNo(), t.getBookTitle(), t.getCategoryNo().getBookCategory(), t.isRentYN()
 			};
 	}
 	

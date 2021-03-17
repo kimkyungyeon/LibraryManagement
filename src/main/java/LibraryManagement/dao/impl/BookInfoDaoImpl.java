@@ -8,31 +8,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 import LibraryManagement.dao.BookInfoDao;
+import LibraryManagement.dto.BookCategory;
 import LibraryManagement.dto.BookInfo;
 import LibraryManagement.util.JdbcUtil;
 
 public class BookInfoDaoImpl implements BookInfoDao {
 	private static final BookInfoDaoImpl instance = new BookInfoDaoImpl();
-	
+
 	public static BookInfoDaoImpl getInstance() {
 		return instance;
 	}
-	
+
 	private BookInfoDaoImpl() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public List<BookInfo> selectBookInfoByAll() {
-		String sql = "select bookno , booktitle , rentYN , categoryno , count , totalcount  from bookinfo";
-		try(Connection con = JdbcUtil.getConnection();
+		String sql = "select bookno , booktitle , rentYN , categoryno ,bookcategory , count , totalcount  from vw_book_categoryname ";
+		try (Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
-				ResultSet rs = pstmt.executeQuery()){
-			if(rs.next()) {
+				ResultSet rs = pstmt.executeQuery()) {
+			if (rs.next()) {
 				List<BookInfo> list = new ArrayList<BookInfo>();
 				do {
 					list.add(getBookInfo(rs));
-				}while(rs.next());
+				} while (rs.next());
 				return list;
 			}
 		} catch (SQLException e) {
@@ -46,7 +47,7 @@ public class BookInfoDaoImpl implements BookInfoDao {
 		int bookNo = rs.getInt("bookno");
 		String bookTitle = rs.getString("booktitle");
 		boolean rentYN = rs.getBoolean("rentYN");
-		int categoryNo = rs.getInt("categoryno");
+		BookCategory categoryNo = new BookCategory(rs.getInt("categoryno"), rs.getString("bookcategory"));
 		int count = rs.getInt("count");
 		int totalCount = rs.getInt("totalcount");
 		return new BookInfo(bookNo, bookTitle, rentYN, categoryNo, count, totalCount);
@@ -54,19 +55,34 @@ public class BookInfoDaoImpl implements BookInfoDao {
 
 	@Override
 	public List<BookInfo> selectBookInfoByNo(BookInfo bookInfo) {
-		// TODO Auto-generated method stub
+		String sql = "select bookno , booktitle , rentYN , categoryno ,bookcategory , count , totalcount  from vw_book_categoryname where bookno = ?";
+		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setInt(1, bookInfo.getBookNo());
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					List<BookInfo> list = new ArrayList<BookInfo>();
+					do {
+						list.add(getBookInfo(rs));
+					} while (rs.next());
+					return list;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	@Override
 	public List<BookInfo> selectBookInfoByTitle(BookInfo bookInfo) {
-		// TODO Auto-generated method stub
+		String sql = "select bookno , booktitle , rentYN , categoryno ,bookcategory , count , totalcount  from vw_book_categoryname where booktitle = ?";
 		return null;
 	}
 
 	@Override
 	public List<BookInfo> selectBookInfoByRentYN(BookInfo bookInfo) {
-		// TODO Auto-generated method stub
+		String sql = "select bookno , booktitle , rentYN , categoryno ,bookcategory , count , totalcount  from vw_book_categoryname where retnYN = ?";
 		return null;
 	}
 
@@ -86,6 +102,12 @@ public class BookInfoDaoImpl implements BookInfoDao {
 	public int deleteBookInfo(BookInfo bookInfo) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<BookInfo> selectBookInfoByCategory(BookInfo bookInfo) {
+		String sql = "select bookno , booktitle , rentYN , categoryno ,bookcategory , count , totalcount  from vw_book_categoryname where categoryno = ?";
+		return null;
 	}
 
 }

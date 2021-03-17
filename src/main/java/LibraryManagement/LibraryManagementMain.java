@@ -27,6 +27,7 @@ public class LibraryManagementMain extends JFrame {
 	private BookInfoTablePanel pBookInfoTable;
 	private pMembSearch pMainMembSearch;
 	private RentInfoTablePanel pMainRentTable;
+	private pBookSearch pMainBookSearch;
 	/**   
 	 * Launch the application.
 	 */
@@ -80,11 +81,11 @@ public class LibraryManagementMain extends JFrame {
 		pMainSearch.add(pLeft);
 		pLeft.setLayout(new BorderLayout(0, 0));
 		
-		pMainMembSearch = new pMembSearch();
 		
+		pMainMembSearch = new pMembSearch();
 		pLeft.add(pMainMembSearch, BorderLayout.NORTH);
 		
-		pMembInfoTable = pMainMembSearch.getEx();
+		pMembInfoTable = pMainMembSearch.getpMembTable();
 		pMembInfoTable.setService(service);
 //		pMembInfoTable.selectByNoList(12001);
 //		pMembInfoTable.initList();
@@ -97,10 +98,10 @@ public class LibraryManagementMain extends JFrame {
 		pMainSearch.add(pRight);
 		pRight.setLayout(new BorderLayout(0, 0));
 		
-		pBookSearch pMainBookSearch = new pBookSearch();
+		pMainBookSearch = new pBookSearch();
 		pRight.add(pMainBookSearch, BorderLayout.NORTH);
 		
-		pBookInfoTable = new BookInfoTablePanel();
+		pBookInfoTable = pMainBookSearch.getpBookTable();
 		pBookInfoTable.setService(service);
 		pBookInfoTable.loadData();
 		pRight.add(pBookInfoTable, BorderLayout.CENTER);

@@ -31,18 +31,27 @@ public class BookInfoDaoTest {
 
 	@Test
 	public void testSelectBookInfoByAll() {
-		
-	}
-
-	@Test
-	public void testSelectBookInfoByNo() {
 		System.out.println("testSelectBookInfoByAll");
 		List<BookInfo> bookInfoList = dao.selectBookInfoByAll();
 		Assert.assertNotNull(bookInfoList);
 		
 		for(BookInfo b : bookInfoList) {
 			System.out.println(b);   
-		}	}
+		}	
+	}
+
+	@Test
+	public void testSelectBookInfoByNo() {
+		System.out.println("testSelectBookInfoByNo");
+		BookInfo newBookInfo = new BookInfo(40001);
+		List<BookInfo> bookInfoList = dao.selectBookInfoByNo(newBookInfo);
+		Assert.assertNotNull(bookInfoList);
+		
+		for(BookInfo b : bookInfoList) {
+			System.out.println(b);   
+		}	
+		
+	}
 
 //	@Test
 //	public void testSelectBookInfoByTitle() {
