@@ -1,4 +1,4 @@
-package LibraryManagement.panel.main;
+package LibraryManagement.panel.rentScreen;
 
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -11,28 +11,33 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import LibraryManagement.panel.main.pMembInfoTablePanel;
+import javax.swing.JButton;
+import java.awt.FlowLayout;
+
 @SuppressWarnings("serial")
 public class pMembSearch extends JPanel implements ActionListener {
 	private JTextField tfMembSearch;
 	private JComboBox<String> cbMembSearchBy;
 	private String tfString;
-	private pMembInfoTablePanel pMembTable;
+	private pMembInfoTable pMembTable;
+	private JButton btnSearch;
 
 	/**
 	 * Create the panel.
 	 */
 	public pMembSearch() {
 //		service = new MembInfoService();
-		pMembTable = new pMembInfoTablePanel();
+		pMembTable = new pMembInfoTable();
 		initialize();
 
 	}
 
-	public pMembInfoTablePanel getpMembTable() {
+	public pMembInfoTable getpMembTable() {
 		return pMembTable;
 	}
 
-	public void setpMembTable(pMembInfoTablePanel ex) {
+	public void setpMembTable(pMembInfoTable ex) {
 		this.pMembTable = ex;
 	}
 
@@ -47,7 +52,7 @@ public class pMembSearch extends JPanel implements ActionListener {
 	}
 
 	private void initialize() {
-		setLayout(new GridLayout(0, 3, 5, 5));
+		setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 
 		JLabel lblMembSearch = new JLabel("빠른 회원 검색 :");
 		lblMembSearch.setHorizontalAlignment(SwingConstants.CENTER);
@@ -64,40 +69,65 @@ public class pMembSearch extends JPanel implements ActionListener {
 		tfMembSearch.addActionListener(this);
 		add(tfMembSearch);
 		tfMembSearch.setColumns(10);
+		
+		btnSearch = new JButton("검 색");
+		btnSearch.addActionListener(this);
+		add(btnSearch);
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnSearch) {
+			actionPerformedBtnSearch(e);
+		}
 		if (e.getSource() == cbMembSearchBy) {
 			actionPerformedCbMembSearchBy(e);
 		}
-		if (e.getSource() == tfMembSearch) {
-			if (tfString.equals("회원번호")) {
-				// 메인화면 좌측 텍스트필드 빈칸 검색시 전체 회원 출력 예외처리
-				try {
-					System.out.println();
-					actionPerformedTfMembSearchByNo(e);
-				} catch (NumberFormatException e1) {
-					pMembTable.loadData();
+//		if (e.getSource() == tfMembSearch) {
+//			if (tfString.equals("회원번호")) {
+//				// 메인화면 좌측 텍스트필드 빈칸 검색시 전체 회원 출력 예외처리
+//				try {
+//					System.out.println();
+//					actionPerformedTfMembSearchByNo(e);
+//				} catch (NumberFormatException e1) {
+//					pMembTable.initList();
+//					pMembTable.setList();
+////				}
 //				}
-				}
-				if (tfString.equals("이름")) {
-					actionPerformedTfMembSearchByName(e);
-				}
-				if (tfString.equals("계정")) {
-					actionPerformedTfMembSearchByAccount(e);
+//				if (tfString.equals("이름")) {
+//					actionPerformedTfMembSearchByName(e);
+//				}
+//				if (tfString.equals("계정")) {
+//					actionPerformedTfMembSearchByAccount(e);
+//				}
+//			}
+//		}
+		if(e.getSource() == btnSearch) {
+			if(tfString.equals("회원번호")) {
+				try {
+					System.out.println(1);
+					actionPerformedBtnSearchByNo(e);
+				}catch (NumberFormatException e1){
+					pMembTable.loadData();
 				}
 			}
+			if (tfString.equals("이름")) {
+				actionPerformedBtnSearchByName(e);
+			}
+			if (tfString.equals("계정")) {
+				actionPerformedBtnSearchByAccount(e);
+			}
 		}
+		
 	}
 
-	private void actionPerformedTfMembSearchByAccount(ActionEvent e) {
+	private void actionPerformedBtnSearchByAccount(ActionEvent e) {
 		String membAccount = tfMembSearch.getText().trim();
 
 		pMembTable.selectByAcountList(membAccount);
 		pMembTable.setList();
 	}
 
-	private void actionPerformedTfMembSearchByName(ActionEvent e) {
+	private void actionPerformedBtnSearchByName(ActionEvent e) {
 		String membName = tfMembSearch.getText().trim();
 
 		pMembTable.selectByNameList(membName);
@@ -105,9 +135,9 @@ public class pMembSearch extends JPanel implements ActionListener {
 		pMembTable.setList();
 	}
 
-	protected void actionPerformedTfMembSearchByNo(ActionEvent e) {
+	protected void actionPerformedBtnSearchByNo(ActionEvent e) {
 		int membNo = Integer.parseInt(tfMembSearch.getText().trim());
-//		ex.setService(service);
+		
 
 		pMembTable.selectByNoList(membNo);
 		pMembTable.setList();
@@ -118,5 +148,7 @@ public class pMembSearch extends JPanel implements ActionListener {
 	protected void actionPerformedCbMembSearchBy(ActionEvent e) {
 		tfString = cbMembSearchBy.getSelectedItem().toString();
 
+	}
+	protected void actionPerformedBtnSearch(ActionEvent e) {
 	}
 }

@@ -1,12 +1,9 @@
 package LibraryManagement.panel.main;
 
-import java.util.ArrayList;
-
 import javax.swing.SwingConstants;
 
 import LibraryManagement.dto.BookInfo;
 import LibraryManagement.panel.AbstractCustomTablePanel;
-import LibraryManagement.service.BookInfoService;
 import LibraryManagement.service.MainService;
 
 public class BookInfoTablePanel extends AbstractCustomTablePanel<BookInfo> {
@@ -21,7 +18,7 @@ public class BookInfoTablePanel extends AbstractCustomTablePanel<BookInfo> {
 	public void selectByNoList(int bookNo) {
 //		list = new ArrayList<BookInfo>();
 		System.out.println(service);
-		list = service.showBookInfoByNo(new BookInfo(bookNo));
+		list = service.showBookInfoByNo(new BookInfo(bookNo));	
 	}
 	
 	public void selectByTitleList(String bookTitle) {

@@ -14,10 +14,7 @@ import LibraryManagement.panel.main.pBookSearch;
 import LibraryManagement.panel.main.pMainBtns;
 import LibraryManagement.panel.main.pMembInfoTablePanel;
 import LibraryManagement.panel.main.pMembSearch;
-import LibraryManagement.service.BookInfoService;
 import LibraryManagement.service.MainService;
-import LibraryManagement.service.MembInfoService;
-import LibraryManagement.service.RentInfoService;
 
 public class LibraryManagementMain extends JFrame {
 
@@ -44,9 +41,9 @@ public class LibraryManagementMain extends JFrame {
 		});
 	}
 
-	public pMembInfoTablePanel getpMembInfoTable() {
-		return pMembInfoTable;
-	}
+//	public pMembInfoTablePanel getpMembInfoTable() {
+//		return pMembInfoTable;
+//	}
 	
 	
 
@@ -64,7 +61,7 @@ public class LibraryManagementMain extends JFrame {
 	private void initialize() {
 		setTitle("도서 관리 프로그램(메인)");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1000, 650);
+		setBounds(100, 100, 1000, 800);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -113,7 +110,6 @@ public class LibraryManagementMain extends JFrame {
 		
 		pMainRentTable = pMembInfoTable.getRentList(); 
 		pMainRentTable.setService(service);
-		System.out.println(1);
 		pMainRentTable.initList();
 		pMainRentTable.blankTable();
 //		pMainRentTable.selectRentInfoByMembNo(membinfo);

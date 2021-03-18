@@ -1,18 +1,12 @@
 package LibraryManagement.panel.main;
 
-import LibraryManagement.dto.BookInfo;
+import javax.swing.SwingConstants;
+import javax.swing.border.TitledBorder;
+
 import LibraryManagement.dto.MembInfo;
 import LibraryManagement.dto.RentInfo;
 import LibraryManagement.panel.AbstractCustomTablePanel;
 import LibraryManagement.service.MainService;
-import LibraryManagement.service.RentInfoService;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.border.TitledBorder;
 
 public class RentInfoTablePanel extends AbstractCustomTablePanel<RentInfo>  {
 	private MainService service;
