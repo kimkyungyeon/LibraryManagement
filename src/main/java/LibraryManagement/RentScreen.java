@@ -87,6 +87,12 @@ public class RentScreen extends JFrame {
 		
 		JPanel panel_3 = new JPanel();
 		contentPane.add(panel_3);
+		
+		JPanel panel_1 = new JPanel();
+		contentPane.add(panel_1);
+		
+		JPanel panel_4 = new JPanel();
+		contentPane.add(panel_4);
 	}
 
 }
