@@ -114,4 +114,18 @@ public class RentInfoDaoImpl implements RentInfoDao {
 		return 0;
 	}
 
+	@Override
+	public int updateBookOverDate() {
+		String sql = "update rentinfo set overdate = (to_days(now())-to_days(rentdate))-3 "
+				+ " where (to_days(now())-to_days(rentdate)) >3" ;
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 }

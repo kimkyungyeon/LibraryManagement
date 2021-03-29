@@ -1,5 +1,8 @@
 package LibraryManagement.service;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 import LibraryManagement.dao.BookInfoDao;
@@ -8,12 +11,17 @@ import LibraryManagement.dao.RentInfoDao;
 import LibraryManagement.dao.impl.BookInfoDaoImpl;
 import LibraryManagement.dao.impl.MembInfoDaoImpl;
 import LibraryManagement.dao.impl.RentInfoDaoImpl;
+import LibraryManagement.dao.impl.TransAction;
+import LibraryManagement.dto.BookInfo;
 import LibraryManagement.dto.MembInfo;
+import LibraryManagement.dto.RentInfo;
+import LibraryManagement.util.JdbcUtil;
 
 public class RentScreenService {
 	private MembInfoDao membDao = MembInfoDaoImpl.getInstance();
 	private BookInfoDao bookDao = BookInfoDaoImpl.getInstance();
 	private RentInfoDao rentDao = RentInfoDaoImpl.getInstance();
+	private TransAction transDao = TransAction.getInstance();
 	
 	public List<MembInfo> showMembInfoAll() {
 		return membDao.selectMembInfoByAll();
@@ -30,4 +38,35 @@ public class RentScreenService {
 	public List<MembInfo> showMembInfoByAccount(MembInfo membinfo) {
 		return membDao.selectMembInfoByMembAccount(membinfo);
 	}
+	
+	public MembInfo showMembInfoByNo1(int membNo) {
+		return membDao.selectMembInfoByMembNo(membNo);
+	}
+	
+	public List<BookInfo> showBookInfoAll(){
+		return bookDao.selectBookInfoByAll();
+	}
+	
+	public List<BookInfo> showBookInfoByNo(BookInfo	bookInfo){
+		return bookDao.selectBookInfoByNo(bookInfo);
+	}
+	
+	public List<BookInfo> showBookInfoByTitle(BookInfo bookInfo){
+		return bookDao.selectBookInfoByTitle(bookInfo);
+	}
+	
+	public List<BookInfo> showBookInfoByCateogry(BookInfo bookInfo){
+		return bookDao.selectBookInfoByCategory(bookInfo);
+	}
+	
+	public List<RentInfo> showRentInfoAll(){
+		return rentDao.selectRentInfoByAll();
+	}
+	
+	public String rentBookTransaction(MembInfo membInfo, BookInfo bookInfo) throws SQLException {
+		return transDao.transAddRentInfoAndUpdateBookInfo(membInfo, bookInfo);
+	}
+	
+	
+	
 }

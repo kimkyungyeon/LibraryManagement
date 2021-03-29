@@ -26,7 +26,7 @@ public class LibraryManagementMain extends JFrame {
 	private RentInfoTablePanel pMainRentTable;
 	private pBookSearch pMainBookSearch;
 	/**   
-	 * Launch the application.
+	 * Launch the application. 
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -46,7 +46,7 @@ public class LibraryManagementMain extends JFrame {
 //	}
 	
 	
-
+	
 	
 
 	/**
@@ -54,7 +54,7 @@ public class LibraryManagementMain extends JFrame {
 	 */
 	public LibraryManagementMain() {
 		service = new MainService();
-		
+		service.updateOverdate();
 		initialize();
 
 	}
@@ -110,8 +110,9 @@ public class LibraryManagementMain extends JFrame {
 		
 		pMainRentTable = pMembInfoTable.getRentList(); 
 		pMainRentTable.setService(service);
-		pMainRentTable.initList();
-		pMainRentTable.blankTable();
+		pMainRentTable.loadData();
+//		pMainRentTable.initList();
+//		pMainRentTable.blankTable();
 //		pMainRentTable.selectRentInfoByMembNo(membinfo);
 		
 		contentPane.add(pMainRentTable, BorderLayout.SOUTH);

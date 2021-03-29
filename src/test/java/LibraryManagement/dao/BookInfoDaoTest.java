@@ -11,6 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import LibraryManagement.dao.impl.BookInfoDaoImpl;
+import LibraryManagement.dto.BookCategory;
 import LibraryManagement.dto.BookInfo;
 import LibraryManagement.dto.MembInfo;
 
@@ -53,15 +54,35 @@ public class BookInfoDaoTest {
 		
 	}
 
-//	@Test
-//	public void testSelectBookInfoByTitle() {
-//		fail("Not yet implemented");
-//	}
-//
+	@Test
+	public void testSelectBookInfoByTitle() {
+		System.out.println("testSelectBookInfoByTitle");
+		BookInfo newBookInfo = new BookInfo("el");
+		List<BookInfo> bookInfoList = dao.selectBookInfoByTitle(newBookInfo);
+		Assert.assertNotNull(bookInfoList);
+		
+		for(BookInfo b : bookInfoList) {
+			System.out.println(b);
+		}
+	}
+
 //	@Test
 //	public void testSelectBookInfoByRentYN() {
 //		fail("Not yet implemented");
 //	}
+	
+	@Test
+	public void testSelectBookInfoByCategory() {
+		System.out.println("testSelectBookInfoByCategory");
+		BookInfo newBookInfo = new BookInfo(new BookCategory("컴퓨터"));
+		List<BookInfo> bookInfoList = dao.selectBookInfoByCategory(newBookInfo);
+		Assert.assertNotNull(bookInfoList);
+		
+		for(BookInfo b : bookInfoList) {
+			System.out.println(b);
+		}
+		
+	}
 //
 //	@Test
 //	public void testInsertBookInfo() {

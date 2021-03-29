@@ -24,6 +24,11 @@ public class BookInfo {
 		this.rentYN = rentYN;
 	}
 
+	
+	public BookInfo(BookCategory categoryNo) {
+		this.categoryNo = categoryNo;
+	}
+
 	public BookInfo(int bookNo, String bookTitle) {
 		this.bookNo = bookNo;
 		this.bookTitle = bookTitle;

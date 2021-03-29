@@ -7,15 +7,17 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
+import LibraryManagement.RentScreen;
 import LibraryManagement.dto.MembInfo;
-import LibraryManagement.dto.RentInfo;
 import LibraryManagement.dto.SubMembInfo;
 import LibraryManagement.exception.NotSelectedException;
 import LibraryManagement.panel.AbstractCustomTablePanel;
+import LibraryManagement.panel.rentScreen.pRentMembDetail;
 import LibraryManagement.service.MainService;
 
 public class pMembInfoTablePanel extends AbstractCustomTablePanel<MembInfo> implements MouseListener{
 	private RentInfoTablePanel rentList;
+	private pRentMembDetail rentMembDetail;
 	private MainService service;
 
 	
@@ -88,7 +90,25 @@ public class pMembInfoTablePanel extends AbstractCustomTablePanel<MembInfo> impl
 
 
 	public void mouseClicked(MouseEvent e) {
+		if(e.getClickCount()==2) {
+			mouseDoubleClickOpenRentScreen();
+			
+		}
 	}
+	private void mouseDoubleClickOpenRentScreen() {
+		int idx = table.getSelectedRow();
+		int userNo =(int) table.getValueAt(idx,0);
+		if(idx==-1) {
+			throw new NotSelectedException();
+		}
+		RentScreen frame = new RentScreen();
+//		frame.getpMembTable().setItem(list.get(idx));
+		MembInfo selectedMembInfo = service.showMembInfoByNo1(userNo);
+		
+		frame.getpMembTable().setItem(selectedMembInfo);
+		frame.setVisible(true);		
+	}
+
 	public void mouseEntered(MouseEvent e) {
 	}
 	public void mouseExited(MouseEvent e) {
@@ -102,18 +122,26 @@ public class pMembInfoTablePanel extends AbstractCustomTablePanel<MembInfo> impl
 	}
 	protected void mousePressedThisTable(MouseEvent e) {
 		int idx = table.getSelectedRow();
+		//정렬했을때 이상한 데이터 나오는 문제 해결
+		//리스트 위치가아닌 0번째값으로 찾기
+		int userNo =(int) table.getValueAt(idx,0);
 		if (idx == -1) {
 			throw new NotSelectedException();
 		}
 		//첫 메인화면 구동시 rentinfo테이블 null 예외처리
 		try {
-			System.out.println(list.get(idx));
-		rentList.selectRentInfoByMembNo(list.get(idx));
+
+		rentList.selectRentInfoByMembNo(new MembInfo(userNo));
 //		System.out.println(service.showRentInfoByMembNo(list.get(idx)));
 		rentList.setList();
 
 		} catch (NullPointerException e1) {
-			JOptionPane.showMessageDialog(null, "대여정보가 없습니다.");
+			
+			rentList.loadData();
+//			rentList.blankTable();
+			System.out.println(1);
+			
+//			JOptionPane.showMessageDialog(null, "대여정보가 없습니다.");
 		}
 	}
 }

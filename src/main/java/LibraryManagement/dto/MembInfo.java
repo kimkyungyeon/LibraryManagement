@@ -133,5 +133,9 @@ public class MembInfo {
 				membNo, membAccount, membName, membBirth, membTel, membPhone, membAddr);
 	}
 	
+//	public String rentConfirm {
+//		return String.format(%, args)
+//	}
+	
 	
 }

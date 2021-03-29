@@ -11,12 +11,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import LibraryManagement.dto.BookInfo;
+
+import javax.swing.JButton;
+import java.awt.FlowLayout;
+
 public class pBookSearch extends JPanel implements ActionListener {
 	private JTextField tfBookSearch;
 	private JComboBox<String> cbBookSearchBy;
 	private String tfString;
 //	private MainService service;
 	private pBookInfoTable pBookTable;
+	private JButton btnSearch;
 
 	/**
 	 * Create the panel.
@@ -45,7 +51,7 @@ public class pBookSearch extends JPanel implements ActionListener {
 	}
 
 	private void initialize() {
-		setLayout(new GridLayout(0, 3, 5, 5));
+		setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 
 		JLabel lblBookSearch = new JLabel("빠른 도서 검색 :");
 		lblBookSearch.setHorizontalAlignment(SwingConstants.CENTER);
@@ -60,48 +66,55 @@ public class pBookSearch extends JPanel implements ActionListener {
 
 		tfBookSearch = new JTextField();
 		tfBookSearch.addActionListener(this);
-		tfBookSearch.setColumns(10);
+		tfBookSearch.setColumns(20);
 		add(tfBookSearch);
+		
+		btnSearch = new JButton("검색");
+		btnSearch.addActionListener(this);
+		add(btnSearch);
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == cbBookSearchBy) {
 			actionPerformedCbBookSearchBy(e);
 		}
-		if (e.getSource() == tfBookSearch) {
+		if (e.getSource() == btnSearch) {
 			if (tfString.equals("도서번호")) {
-
 				try {
-					actionPerformedTfBookSearchByNo(e);
+					actionPerformedBtnSearchByNo(e);
 				} catch (NullPointerException e1) {
-					pBookTable.initList();
-					pBookTable.setList();
+					pBookTable.loadData();
 				}
 			}
 			if (tfString.equals("도서제목")) {
-//				actionPerformedTfBookSearchByTitle(e);
+				actionPerformedBtnSearchByTitle(e);
 			}
 			if (tfString.equals("도서구분")) {
-//				actionPerformedTfBookSearchByCategory(e);
+				actionPerformedBtnSearchByCategory(e);
 			}
 		}
 	}
 
 	// 콤보박스 도서구부능로 선택후 검색
-	private void actionPerformedTfBookSearchByCategory(ActionEvent e) {
+	private void actionPerformedBtnSearchByCategory(ActionEvent e) {
+		String bookCategory = tfBookSearch.getText().trim();
+		pBookTable.selectByCategoryList(bookCategory);
+		pBookTable.setList();
 
 	}
 
 	// 콤보박스 도서제목으로 선택후 검색
-	private void actionPerformedTfBookSearchByTitle(ActionEvent e) {
-		// TODO Auto-generated method stub
+	private void actionPerformedBtnSearchByTitle(ActionEvent e) {
+		String bookTitle = tfBookSearch.getText().trim();
+		pBookTable.selectByTitleList(bookTitle);
+		pBookTable.setList();
 
 	}
 
 	// 콤보박스 도서번호로 선택후 검색
-	private void actionPerformedTfBookSearchByNo(ActionEvent e) {
+	private void actionPerformedBtnSearchByNo(ActionEvent e) {
 		int bookNo = Integer.parseInt(tfBookSearch.getText().trim());
-		System.out.println(bookNo);
+		
 		pBookTable.selectByNoList(bookNo);
 		pBookTable.setList();
 

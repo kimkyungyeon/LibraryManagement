@@ -11,6 +11,7 @@ public interface BookInfoDao {
 	List<BookInfo> selectBookInfoByCategory(BookInfo bookInfo);
 	List<BookInfo> selectBookInfoByRentYN(BookInfo bookInfo);
 	
+	
 	int insertBookInfo(BookInfo bookInfo);
 	int updateBookInfo(BookInfo bookInfo);
 	int deleteBookInfo(BookInfo bookInfo);

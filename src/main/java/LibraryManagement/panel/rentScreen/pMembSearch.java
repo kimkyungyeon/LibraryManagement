@@ -68,7 +68,7 @@ public class pMembSearch extends JPanel implements ActionListener {
 		tfMembSearch = new JTextField();
 		tfMembSearch.addActionListener(this);
 		add(tfMembSearch);
-		tfMembSearch.setColumns(10);
+		tfMembSearch.setColumns(20);
 		
 		btnSearch = new JButton("검 색");
 		btnSearch.addActionListener(this);
@@ -104,7 +104,6 @@ public class pMembSearch extends JPanel implements ActionListener {
 		if(e.getSource() == btnSearch) {
 			if(tfString.equals("회원번호")) {
 				try {
-					System.out.println(1);
 					actionPerformedBtnSearchByNo(e);
 				}catch (NumberFormatException e1){
 					pMembTable.loadData();
@@ -129,9 +128,7 @@ public class pMembSearch extends JPanel implements ActionListener {
 
 	private void actionPerformedBtnSearchByName(ActionEvent e) {
 		String membName = tfMembSearch.getText().trim();
-
 		pMembTable.selectByNameList(membName);
-		;
 		pMembTable.setList();
 	}
 

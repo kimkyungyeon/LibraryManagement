@@ -74,19 +74,19 @@ public class pMembSearch extends JPanel implements ActionListener {
 			if (tfString.equals("회원번호")) {
 				// 메인화면 좌측 텍스트필드 빈칸 검색시 전체 회원 출력 예외처리
 				try {
-					System.out.println();
 					actionPerformedTfMembSearchByNo(e);
 				} catch (NumberFormatException e1) {
 					pMembTable.loadData();
-//				}
-				}
-				if (tfString.equals("이름")) {
-					actionPerformedTfMembSearchByName(e);
-				}
-				if (tfString.equals("계정")) {
-					actionPerformedTfMembSearchByAccount(e);
+
 				}
 			}
+			if (tfString.equals("이름")) {
+				actionPerformedTfMembSearchByName(e);
+			}
+			if (tfString.equals("계정")) {
+				actionPerformedTfMembSearchByAccount(e);
+			}
+
 		}
 	}
 
@@ -99,20 +99,15 @@ public class pMembSearch extends JPanel implements ActionListener {
 
 	private void actionPerformedTfMembSearchByName(ActionEvent e) {
 		String membName = tfMembSearch.getText().trim();
-
 		pMembTable.selectByNameList(membName);
-		;
 		pMembTable.setList();
 	}
 
 	protected void actionPerformedTfMembSearchByNo(ActionEvent e) {
 		int membNo = Integer.parseInt(tfMembSearch.getText().trim());
-//		ex.setService(service);
-
 		pMembTable.selectByNoList(membNo);
 		pMembTable.setList();
-//		System.out.println(service.showMembInfoByNo(new MembInfo(membNo)));
-//		ex.loadData();		
+
 	}
 
 	protected void actionPerformedCbMembSearchBy(ActionEvent e) {

@@ -16,13 +16,18 @@ public class MainService {
 	private MembInfoDao membDao = MembInfoDaoImpl.getInstance();
 	private RentInfoDao rentDao = RentInfoDaoImpl.getInstance();
 	private BookInfoDao bookDao = BookInfoDaoImpl.getInstance();
-
+	
+	
 	public List<MembInfo> showMembInfoAll() {
 		return membDao.selectMembInfoByAll();
 	}
 
 	public List<MembInfo> showMembInfoByNo(MembInfo membinfo) {
 		return membDao.selectMembInfoByMembNo(membinfo);
+	}
+	
+	public MembInfo showMembInfoByNo1(int membNo) {
+		return membDao.selectMembInfoByMembNo(membNo);
 	}
 	
 	public List<MembInfo> showMembInfoByName(MembInfo membinfo){
@@ -37,6 +42,10 @@ public class MainService {
 		return rentDao.selectRentInfoByMembNo(membInfo);
 	}
 	
+	public int updateOverdate() {
+		return rentDao.updateBookOverDate();
+	}
+	
 	public List<RentInfo> showRentInfoAll(){
 		return rentDao.selectRentInfoByAll();
 	}
@@ -47,6 +56,14 @@ public class MainService {
 	
 	public List<BookInfo> showBookInfoByNo(BookInfo	bookInfo){
 		return bookDao.selectBookInfoByNo(bookInfo);
+	}
+
+	public List<BookInfo> showBookInfoByTitle(BookInfo bookInfo) {
+		return bookDao.selectBookInfoByTitle(bookInfo);
+	}
+
+	public List<BookInfo> showBookInfoByCateogry(BookInfo bookInfo) {
+		return bookDao.selectBookInfoByCategory(bookInfo);
 	}
 	
 }

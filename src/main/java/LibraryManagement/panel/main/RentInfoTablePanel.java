@@ -3,12 +3,18 @@ package LibraryManagement.panel.main;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
+import LibraryManagement.RentScreen;
 import LibraryManagement.dto.MembInfo;
 import LibraryManagement.dto.RentInfo;
+import LibraryManagement.exception.NotSelectedException;
 import LibraryManagement.panel.AbstractCustomTablePanel;
+import LibraryManagement.panel.rentScreen.pRentMembDetail;
 import LibraryManagement.service.MainService;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.awt.event.MouseEvent;
 
-public class RentInfoTablePanel extends AbstractCustomTablePanel<RentInfo>  {
+public class RentInfoTablePanel extends AbstractCustomTablePanel<RentInfo>   {
 	private MainService service;
 	
 	public RentInfoTablePanel() {
@@ -22,7 +28,7 @@ public class RentInfoTablePanel extends AbstractCustomTablePanel<RentInfo>  {
 
 	@Override
 	public void initList() {
-		list = null;
+		list = new ArrayList<RentInfo>();
 //		list= service.showRentInfoAll();
 		
 	}
@@ -62,4 +68,7 @@ public class RentInfoTablePanel extends AbstractCustomTablePanel<RentInfo>  {
 	
 
 	
+	
+
+
 }

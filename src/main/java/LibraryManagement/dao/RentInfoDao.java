@@ -15,5 +15,5 @@ public interface RentInfoDao {
 	int insertRentInfo(RentInfo rentInfo);
 	int updateRentInfo(RentInfo rentInfo);
 	int deleteRentInfo(RentInfo rentInfo);
-	
+	int updateBookOverDate();
 }

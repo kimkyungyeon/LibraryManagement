@@ -40,7 +40,7 @@ public class pMembInfoTable extends AbstractCustomTablePanel<MembInfo> implement
 	
 	// 콤보박스 회원번호 설정 후 검색 
 	public void selectByNoList(int membNo) {
-		
+		System.out.println(service);
 		list = service.showMembInfoByNo(new MembInfo(membNo));
 		
 	}
@@ -129,7 +129,7 @@ public class pMembInfoTable extends AbstractCustomTablePanel<MembInfo> implement
 	}
 
 	//테이블에서 클릭하면 대여회원상세정보에 데이터 세팅
-	private void setItem(MembInfo membInfo) {
+	public void setItem(MembInfo membInfo) {
 		membDetail.getTfMembName().setText(membInfo.getMembName());
 		membDetail.getTfMembNo().setText(membInfo.getMembno()+"");
 		membDetail.getTfBirthYear().setText(membInfo.getMembBirth().getYear()+1900+"");
@@ -139,4 +139,6 @@ public class pMembInfoTable extends AbstractCustomTablePanel<MembInfo> implement
 		membDetail.getTfMembTel().setText(membInfo.getMembTel());
 		membDetail.getTfMembPhone().setText(membInfo.getMembPhone());
 	}
+	
+	
 }

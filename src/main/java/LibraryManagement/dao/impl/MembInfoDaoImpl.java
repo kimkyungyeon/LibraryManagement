@@ -169,4 +169,23 @@ public class MembInfoDaoImpl implements MembInfoDao {
 		return null;
 	}
 
+	@Override
+	public MembInfo selectMembInfoByMembNo(int membNo) {
+		String sql =  "select membno , membaccount , membname, membbirth , "
+				+ " membtel , membphone, membaddr from membinfo where membno = ?";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt =con.prepareStatement(sql)){
+			pstmt.setInt(1, membNo);
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) {
+					return getMembInfo(rs);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

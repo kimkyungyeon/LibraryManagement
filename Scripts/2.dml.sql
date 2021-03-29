@@ -30,6 +30,7 @@ select * from bookcategory b ;
 select * from membinfo;
 
 select * from bookinfo;
+
 create view vw_book_categoryname
 as select bookno, booktitle, rentYN, b.categoryno, count, totalcount , c.bookcategory
 from bookinfo b join bookcategory c 

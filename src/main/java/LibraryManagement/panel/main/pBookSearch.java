@@ -84,22 +84,28 @@ public class pBookSearch extends JPanel implements ActionListener {
 				}
 			}
 			if (tfString.equals("도서제목")) {
-//				actionPerformedTfBookSearchByTitle(e);
+				actionPerformedTfBookSearchByTitle(e);
 			}
 			if (tfString.equals("도서구분")) {
-//				actionPerformedTfBookSearchByCategory(e);
+				actionPerformedTfBookSearchByCategory(e);
 			}
 		}
 	}
 
 	// 콤보박스 도서구부능로 선택후 검색
 	private void actionPerformedTfBookSearchByCategory(ActionEvent e) {
+		String bookCategory = tfBookSearch.getText().trim();
+		pBookTable.selectByCategoryList(bookCategory);
+		pBookTable.setList();
 
 	}
 
 	// 콤보박스 도서제목으로 선택후 검색
 	private void actionPerformedTfBookSearchByTitle(ActionEvent e) {
-		// TODO Auto-generated method stub
+		String bookTitle = tfBookSearch.getText().trim();
+		pBookTable.selectByTitleList(bookTitle);
+		pBookTable.setList();
+
 
 	}
 

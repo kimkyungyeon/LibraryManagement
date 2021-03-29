@@ -18,6 +18,9 @@ where (to_days(now())-to_days(rentdate)) >3;
 
 -- 3일이 넘는 경우 연체일 업데이트
 update rentinfo set overdate = (to_days(now())-to_days(rentdate))-3 where (to_days(now())-to_days(rentdate)) >3;
+
+select * from rentinfo;
+
 -- 72시간이 넘는 경우 연체일 업데이트
 update rentinfo set overdate = (TIMESTAMPDIFF(hour, rentdate,now())-72)/24 where TIMESTAMPDIFF(hour, rentdate,now()) >72;
 

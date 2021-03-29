@@ -10,7 +10,7 @@ public interface MembInfoDao {
 	List<MembInfo> selectMembInfoByMembNo(MembInfo membInfo);				//int 		회원번호로 select
 	List<MembInfo> selectMembInfoByMembName(MembInfo membInfo);				//String	회원성명으로 select
 	List<MembInfo> selectMembInfoByMembAccount(MembInfo membInfo);			//String	회원계정으로 select 
-	
+	MembInfo selectMembInfoByMembNo(int membNo);
 	
 	
 	int insertMembInfo(MembInfo membInfo);

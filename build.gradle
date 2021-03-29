@@ -27,8 +27,8 @@ dependencies {
 
 jar {
 	version = 1.0
-	mainClassName= 'LibraryManagement.Temp'
-	baseName= 'Temp'
+	mainClassName= 'LibraryManagement.LibraryManagementMain'
+	baseName= 'LibraryManagementMain'
 	appendix = 'bin'
 	
 	manifest{
