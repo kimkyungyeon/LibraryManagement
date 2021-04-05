@@ -28,12 +28,22 @@ insert into membinfo values
 select * from bookinfo;
 select * from bookcategory b ;
 select * from membinfo;
+update rentinfo set returndate = now() where rentno = 1 returndate is null;
+select * from rentinfo;
 
-select * from bookinfo;
-
-create view vw_book_categoryname
-as select bookno, booktitle, rentYN, b.categoryno, count, totalcount , c.bookcategory
-from bookinfo b join bookcategory c 
-on b.categoryno  = c.categoryno ;
+create view vw_book_rentcategoryname
+as select b.bookno, booktitle, rentYN, b.categoryno, count, totalcount , c.bookcategory
+from bookinfo b join bookcategory c on b.categoryno  = c.categoryno
+				join rentinfo r on b.bookno = r.bookno;
 
 select * from vw_book_categoryname;
+select * from bookinfo;
+select * from vw_rentbookinfo vr ;
+
+create view vw_rentall
+as select r.rentno, b.bookno, b.booktitle, c.bookcategory, b.count, b.totalcount, r.overdate, r.rentdate, r.membno
+from rentinfo r  join bookinfo b on r.bookno = b.bookno 
+				 join bookcategory c on b.categoryno = c.categoryno ;
+				
+select * from vw_rentall;
+				

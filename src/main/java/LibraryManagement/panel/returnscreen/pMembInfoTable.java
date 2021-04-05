@@ -1,4 +1,4 @@
-  package LibraryManagement.panel.rentScreen;
+  package LibraryManagement.panel.returnscreen;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -14,20 +14,25 @@ import LibraryManagement.exception.NotSelectedException;
 import LibraryManagement.panel.AbstractCustomTablePanel;
 import LibraryManagement.service.MainService;
 import LibraryManagement.service.RentScreenService;
+import LibraryManagement.service.ReturnScreenService;
 
 public class pMembInfoTable extends AbstractCustomTablePanel<MembInfo> implements MouseListener{
 //	private RentInfoTablePanel rentList;
-	private pRentMembDetail membDetail;
-	private RentScreenService service;
+	private pReturnMembDetail membDetail;
+	private ReturnScreenService service;
+	private pRentInfoTable rentTable;
+//	private pReturnBookDetail rentBookDetail;
 
 	
 	public pMembInfoTable() {
 //		rentList = new RentInfoTablePanel();
-		membDetail = new pRentMembDetail();
+		membDetail = new pReturnMembDetail();
+		rentTable = new pRentInfoTable();
+//		rentBookDetail = new pReturnBookDetail();
 		table.addMouseListener(this);
 	}
 	
-	public pRentMembDetail getMembDetail() {
+	public pReturnMembDetail getMembDetail() {
 		return membDetail;
 	}
 
@@ -91,7 +96,7 @@ public class pMembInfoTable extends AbstractCustomTablePanel<MembInfo> implement
 		};
 	}
 	
-	public void setService(RentScreenService service) {
+	public void setService(ReturnScreenService service) {
 		this.service = service;
 	}
 
@@ -109,6 +114,7 @@ public class pMembInfoTable extends AbstractCustomTablePanel<MembInfo> implement
 	}
 	public void mouseReleased(MouseEvent e) {
 	}
+	
 	protected void mousePressedThisTable(MouseEvent e) {
 		int idx = table.getSelectedRow();
 		int membNo = (int) table.getValueAt(idx, 0);
@@ -118,6 +124,11 @@ public class pMembInfoTable extends AbstractCustomTablePanel<MembInfo> implement
 		try {
 		MembInfo selectedMembInfo = service.showMembInfoByNo1(membNo);
 		setItem(selectedMembInfo);
+		
+		rentTable.selectRentInfoByMembNo(selectedMembInfo);
+		rentTable.setList();
+		
+		
 //		
 //		if (idx == -1) {
 //			throw new NotSelectedException();
@@ -132,6 +143,14 @@ public class pMembInfoTable extends AbstractCustomTablePanel<MembInfo> implement
 		} catch (NullPointerException e1) {
 			JOptionPane.showMessageDialog(null, "대여정보가 없습니다.");
 		}
+	}
+
+	public pRentInfoTable getRentTable() {
+		return rentTable;
+	}
+
+	public void setRentTable(pRentInfoTable rentTable) {
+		this.rentTable = rentTable;
 	}
 
 	//테이블에서 클릭하면 대여회원상세정보에 데이터 세팅

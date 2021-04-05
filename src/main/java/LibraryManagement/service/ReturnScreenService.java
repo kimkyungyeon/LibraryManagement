@@ -14,7 +14,7 @@ import LibraryManagement.dto.BookInfo;
 import LibraryManagement.dto.MembInfo;
 import LibraryManagement.dto.RentInfo;
 
-public class RentScreenService {
+public class ReturnScreenService {
 	private MembInfoDao membDao = MembInfoDaoImpl.getInstance();
 	private BookInfoDao bookDao = BookInfoDaoImpl.getInstance();
 	private RentInfoDao rentDao = RentInfoDaoImpl.getInstance();
@@ -63,8 +63,13 @@ public class RentScreenService {
 	public List<RentInfo> showRentInfoByNo(MembInfo membInfo){
 		return rentDao.selectRentInfoByMembNo(membInfo);
 	}
+	
 	public String rentBookTransaction(MembInfo membInfo, BookInfo bookInfo) throws SQLException {
 		return transDao.transAddRentInfoAndUpdateBookInfo(membInfo, bookInfo);
+	}
+	
+	public String returnBookTransaction(RentInfo rentInfo) throws SQLException {
+		return transDao.transUpdateRentInfoAndUpdateBookInfo(rentInfo);
 	}
 	
 	

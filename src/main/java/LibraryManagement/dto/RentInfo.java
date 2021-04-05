@@ -14,6 +14,13 @@ public class RentInfo {
 		this.membNo = membNo;
 	}
 
+	   
+	public RentInfo(int rentNo, BookInfo bookNo) {
+		this.rentNo = rentNo;
+		this.bookNo = bookNo;
+	}
+
+
 	public RentInfo(int rentNo) {
 		this.rentNo = rentNo;
 	}

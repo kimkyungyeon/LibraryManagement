@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import LibraryManagement.dao.RentInfoDao;
+import LibraryManagement.dto.BookCategory;
 import LibraryManagement.dto.BookInfo;
 import LibraryManagement.dto.MembInfo;
 import LibraryManagement.dto.RentInfo;
@@ -27,7 +28,9 @@ public class RentInfoDaoImpl implements RentInfoDao {
 
 	@Override
 	public List<RentInfo> selectRentInfoByAll() {
-		String sql = "select  rentno, membno, bookno, rentdate, returndate, overdate from rentInfo ";
+		String sql = "select  r.rentno , r.membno, r.bookno, b.booktitle, r.overdate , r.rentdate , r.returndate , c.categoryno , c.bookcategory "
+				+ " FROM bookinfo b JOIN rentinfo r " + 
+				" ON b.bookno = r.bookno  join bookcategory c  on b.categoryno = c.categoryno ";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()){
@@ -54,9 +57,10 @@ public class RentInfoDaoImpl implements RentInfoDao {
 
 	@Override
 	public List<RentInfo> selectRentInfoByMembNo(MembInfo membInfo) {
-		String sql = "SELECT r.rentno , r.membno, r.bookno, b.booktitle, r.overdate , r.rentdate , r.returndate "
-				+ " FROM bookinfo b JOIN rentinfo r" 
-				+ "	ON b.bookno = r.bookno where r.membno = ? and returndate is null";
+		String sql = "SELECT r.rentno , r.membno, r.bookno, b.booktitle, r.overdate , r.rentdate , r.returndate , c.categoryno , c.bookcategory "
+				+ " FROM bookinfo b JOIN rentinfo r " 
+				+ "	ON b.bookno = r.bookno join bookcategory c  on b.categoryno = c.categoryno "
+				+ " where r.membno = ? and returndate is null";
 		try(Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setInt(1, membInfo.getMembno());
@@ -82,7 +86,7 @@ public class RentInfoDaoImpl implements RentInfoDao {
 	private RentInfo getRentInfo(ResultSet rs) throws SQLException {
 		int rentNo = rs.getInt("r.rentno");
 		MembInfo membNo = new MembInfo(rs.getInt("r.membno"));
-		BookInfo bookNo = new BookInfo(rs.getInt("r.bookno"),rs.getString("b.booktitle"));
+		BookInfo bookNo = new BookInfo(rs.getInt("r.bookno"),rs.getString("b.booktitle"),new BookCategory(rs.getInt("c.categoryno"),rs.getString("c.bookcategory")));
 		Date rentDate = rs.getDate("r.rentdate");
 		Date returnDate = rs.getDate("r.returndate");
 		int overDate = rs.getInt("r.overdate");

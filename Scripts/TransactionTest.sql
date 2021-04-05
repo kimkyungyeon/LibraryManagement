@@ -11,6 +11,7 @@ update bookinfo set rentyn = 0  where count = 0;
 
 -- 반납
 update bookinfo set count = count+1 where bookno = 40001 and count<5;
+update rentinfo set returndate = now() where rentno = ?; 
 update bookinfo set rentyn = 1  where count !=0 ;
 
 

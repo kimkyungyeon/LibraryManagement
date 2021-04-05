@@ -172,7 +172,7 @@ public class RentScreen extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(null, pMembDetail.getMembNo().getMembno()+ "회원의" +pBookDetail.getBookNo().getBookNo()+"도서 대출이 완료되었습니다.");
 		}catch (NumberFormatException e1) {
 			JOptionPane.showMessageDialog(null, "회원, 도서정보를 입력하세요", "에러", JOptionPane.WARNING_MESSAGE);
-		} catch (SQLException e1) {
+		}catch (SQLException e1) {
 			JOptionPane.showMessageDialog(null, "대여 불가능합니다.","오류",JOptionPane.ERROR_MESSAGE);
 		}
 //		String str = String.format(pMembDetail.getMembNo()+ "회원의" +pBookDetail.getBookNo()+"도서 대출이 완료되었습니다.", args)

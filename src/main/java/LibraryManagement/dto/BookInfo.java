@@ -25,6 +25,12 @@ public class BookInfo {
 	}
 
 	
+	public BookInfo(int bookNo, String bookTitle, BookCategory categoryNo) {
+		this.bookNo = bookNo;
+		this.bookTitle = bookTitle;
+		this.categoryNo = categoryNo;
+	}
+
 	public BookInfo(BookCategory categoryNo) {
 		this.categoryNo = categoryNo;
 	}
