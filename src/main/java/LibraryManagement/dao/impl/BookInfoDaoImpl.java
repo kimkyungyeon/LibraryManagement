@@ -77,15 +77,14 @@ public class BookInfoDaoImpl implements BookInfoDao {
 	@Override
 	public List<BookInfo> selectBookInfoByTitle(BookInfo bookInfo) {
 		String sql = "select bookno , booktitle , rentYN , categoryno ,bookcategory , count , totalcount  from vw_book_categoryname where booktitle like ?";
-		try(Connection con = JdbcUtil.getConnection();
-				PreparedStatement pstmt = con.prepareStatement(sql)){
-			pstmt.setString(1,"%"+ bookInfo.getBookTitle()+"%");
-			try(ResultSet rs = pstmt.executeQuery()){
-				if(rs.next()) {
+		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, "%" + bookInfo.getBookTitle() + "%");
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
 					List<BookInfo> list = new ArrayList<BookInfo>();
 					do {
 						list.add(getBookInfo(rs));
-					} while(rs.next());
+					} while (rs.next());
 					return list;
 				}
 			}
@@ -122,19 +121,37 @@ public class BookInfoDaoImpl implements BookInfoDao {
 	@Override
 	public List<BookInfo> selectBookInfoByCategory(BookInfo bookInfo) {
 		String sql = "select bookno , booktitle , rentYN , categoryno ,bookcategory , count , totalcount  from vw_book_categoryname where bookcategory like ?";
-		try(Connection con = JdbcUtil.getConnection();
-				PreparedStatement pstmt = con.prepareStatement(sql)){
-			pstmt.setString(1,"%"+ bookInfo.getCategoryNo().getBookCategory()+"%");
-			try(ResultSet rs = pstmt.executeQuery()){
-				if(rs.next()) {
+		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, "%" + bookInfo.getCategoryNo().getBookCategory() + "%");
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
 					List<BookInfo> list = new ArrayList<BookInfo>();
 					do {
 						list.add(getBookInfo(rs));
-					}while(rs.next());
+					} while (rs.next());
 					return list;
 				}
 			}
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public BookInfo selectBookInfoByNo(int bookNo) {
+		String sql = "select bookno , booktitle , rentYN , categoryno ,bookcategory , count , totalcount  from vw_book_categoryname where bookno = ?";
+		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setInt(1, bookNo);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					return getBookInfo(rs);
+				}
+			}
+		} catch (
+
+		SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

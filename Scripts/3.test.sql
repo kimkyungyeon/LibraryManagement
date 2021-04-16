@@ -74,3 +74,7 @@ select membno, membName, membaccount ,membtel ,membphone
 from membinfo m 
 where  ;
 
+
+delete from membinfo;
+truncate table bookinfo ;
+truncate table rentinfo ; 

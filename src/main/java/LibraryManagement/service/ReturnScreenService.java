@@ -64,6 +64,10 @@ public class ReturnScreenService {
 		return rentDao.selectRentInfoByMembNo(membInfo);
 	}
 	
+	public RentInfo showRentInfoByRentNo(RentInfo rentInfo) {
+		return rentDao.selectRentInfoByRentNo(rentInfo);
+	}
+	
 	public String rentBookTransaction(MembInfo membInfo, BookInfo bookInfo) throws SQLException {
 		return transDao.transAddRentInfoAndUpdateBookInfo(membInfo, bookInfo);
 	}

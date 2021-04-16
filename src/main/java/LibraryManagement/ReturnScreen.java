@@ -22,7 +22,7 @@ import LibraryManagement.panel.returnscreen.pReturnMembDetail;
 import LibraryManagement.service.ReturnScreenService;
 
 public class ReturnScreen extends JFrame implements ActionListener {
-
+	
 	private JPanel contentPane;
 	private pMembSearch pMembSearch3;
 	private pMembInfoTable pMembTable3;
@@ -32,11 +32,9 @@ public class ReturnScreen extends JFrame implements ActionListener {
 	private pReturnBookDetail pRentDetail3;
 	private JButton btnClear;
 	private JButton btnReturn;
+	private static LibraryManagementMain main;
 	
 
-	/**
-	 * Launch the application.
-	 */
 //	public static void main(String[] args) {
 //		EventQueue.invokeLater(new Runnable() {
 //			public void run() {
@@ -50,14 +48,28 @@ public class ReturnScreen extends JFrame implements ActionListener {
 //		});
 //	}
 
-	/**
-	 * Create the frame.
-	 */
 	
+	public pReturnMembDetail getpMembDetail3() {
+		return pMembDetail3;
+	}
+
+	public void setpMembDetail3(pReturnMembDetail pMembDetail3) {
+		this.pMembDetail3 = pMembDetail3;
+	}
+
+	public pReturnBookDetail getpRentDetail3() {
+		return pRentDetail3;
+	}
+
+	public void setpRentDetail3(pReturnBookDetail pRentDetail3) {
+		this.pRentDetail3 = pRentDetail3;
+	}
+
 	public ReturnScreen() {
 		service = new ReturnScreenService();
 		initialize();
 	}
+	
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 600, 700);
@@ -124,19 +136,46 @@ public class ReturnScreen extends JFrame implements ActionListener {
 			actionPerformedBtnClear(e);
 		}
 	}
+	
+	public pMembInfoTable getpMembTable3() {
+		return pMembTable3;
+	}
+
+	public void setpMembTable3(pMembInfoTable pMembTable3) {
+		this.pMembTable3 = pMembTable3;
+	}
+
+	public pRentInfoTable getpRentTable3() {
+		return pRentTable3;
+	}
+
+	public void setpRentTable3(pRentInfoTable pRentTable3) {
+		this.pRentTable3 = pRentTable3;
+	}
+
 	protected void actionPerformedBtnClear(ActionEvent e) {
 		pMembDetail3.clearTf();
 		pRentDetail3.clearTf();
 	}
+	
 	protected void actionPerformedBtnReturn(ActionEvent e) {
 		try {
 			service.returnBookTransaction(pRentTable3.getRentNo());
 			JOptionPane.showMessageDialog(null, pMembDetail3.getMembNo().getMembName()
 					+"("+pMembDetail3.getMembNo().getMembno()+") 회원의  "+ pRentDetail3.getBookNo().getBookNo()+"도서 반납이 완료되었습니다." );
+			
+			pRentTable3.selectRentInfoByMembNo(pMembDetail3.getMembNo());
+			pRentTable3.setList();
+			
+		} catch (NullPointerException e1) {
+			pRentTable3.initList();
+			pRentTable3.setList();
 		} catch (NumberFormatException | IndexOutOfBoundsException e1) {
 			JOptionPane.showMessageDialog(null, "회원, 도서정보를 입력하세요", "에러", JOptionPane.WARNING_MESSAGE);	
 		} catch (SQLException e1) {
 			JOptionPane.showMessageDialog(null, "반납 불가능합니다.","오류",JOptionPane.ERROR_MESSAGE);
 		}
 	}
+
+	
 }

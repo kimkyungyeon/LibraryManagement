@@ -8,7 +8,7 @@ import LibraryManagement.dto.RentInfo;
 
 public interface RentInfoDao {
 	List<RentInfo> selectRentInfoByAll();
-	List<RentInfo> selectRentInfoByRentNo(RentInfo rentInfo);
+	RentInfo selectRentInfoByRentNo(RentInfo rentInfo);
 	List<RentInfo> selectRentInfoByMembNo(MembInfo membInfo);
 	List<RentInfo> selectRentInfoByBookNo(BookInfo bookInfo);
 	

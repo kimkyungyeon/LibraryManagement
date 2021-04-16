@@ -2,6 +2,8 @@ package LibraryManagement.panel.main;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -9,12 +11,20 @@ import javax.swing.SwingConstants;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
+import LibraryManagement.RentScreen;
 import LibraryManagement.dto.BookCategory;
 import LibraryManagement.dto.BookInfo;
+import LibraryManagement.exception.NotSelectedException;
 import LibraryManagement.panel.AbstractCustomTablePanel;
 import LibraryManagement.service.MainService;
 
-public class BookInfoTablePanel extends AbstractCustomTablePanel<BookInfo> {
+public class BookInfoTablePanel extends AbstractCustomTablePanel<BookInfo> implements MouseListener {
+	public BookInfoTablePanel() {
+		initialize();
+	}
+	private void initialize() {
+		table.addMouseListener(this);
+	}
 	private MainService service;
 
 	@Override
@@ -93,4 +103,33 @@ public class BookInfoTablePanel extends AbstractCustomTablePanel<BookInfo> {
 	}
 	
 	
+	public void mouseClicked(MouseEvent e) {
+		if(e.getClickCount()==2) {
+			mouseDoubleClickOpenRentScreen();
+		}
+			
+	}
+	private void mouseDoubleClickOpenRentScreen() {
+		int idx = table.getSelectedRow();
+		int bookNo = (int) table.getValueAt(idx, 0);
+		
+		if(idx == -1) {
+			throw new NotSelectedException();
+		}
+		System.out.println(bookNo);
+		RentScreen frame = new RentScreen();
+		BookInfo selectedBookInfo = service.showBookInfoByNo(new BookInfo(bookNo)).get(0);
+		frame.getpBookTable().setItem(selectedBookInfo);
+		frame.setVisible(true);
+	}
+	public void mouseEntered(MouseEvent e) {
+	}
+	public void mouseExited(MouseEvent e) {
+	}
+	public void mousePressed(MouseEvent e) {
+	}
+	public void mouseReleased(MouseEvent e) {
+	}
+	protected void mousePressedThisTable(MouseEvent e) {
+	}
 }

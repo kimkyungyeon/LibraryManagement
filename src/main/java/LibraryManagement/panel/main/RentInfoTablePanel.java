@@ -1,24 +1,32 @@
 package LibraryManagement.panel.main;
 
+import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
-import LibraryManagement.RentScreen;
+import LibraryManagement.ReturnScreen;
 import LibraryManagement.dto.MembInfo;
 import LibraryManagement.dto.RentInfo;
 import LibraryManagement.exception.NotSelectedException;
 import LibraryManagement.panel.AbstractCustomTablePanel;
-import LibraryManagement.panel.rentScreen.pRentMembDetail;
+import LibraryManagement.panel.returnscreen.pRentInfoTable;
+import LibraryManagement.panel.returnscreen.pReturnMembDetail;
 import LibraryManagement.service.MainService;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.awt.event.MouseEvent;
+import LibraryManagement.service.ReturnScreenService;
 
-public class RentInfoTablePanel extends AbstractCustomTablePanel<RentInfo>   {
+public class RentInfoTablePanel extends AbstractCustomTablePanel<RentInfo> implements MouseListener   {
 	private MainService service;
+	private ReturnScreenService returnService = new ReturnScreenService();
+	private pReturnMembDetail returnMembDetail;    
+	
 	
 	public RentInfoTablePanel() {
 		initialize();
+		table.addMouseListener(this);
 	}
 	
 	
@@ -65,8 +73,86 @@ public class RentInfoTablePanel extends AbstractCustomTablePanel<RentInfo>   {
 	public void setService(MainService service) {
 		this.service = service;
 	}
-	
 
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(e.getClickCount()==2) {
+			mouseDoubleClickOpenReturnScreen();
+		}
+	}
+
+
+	private void mouseDoubleClickOpenReturnScreen() {
+		int idx = table.getSelectedRow();
+		int rentNo = (int) table.getValueAt(idx, 0);
+		int bookNo = (int) table.getValueAt(idx, 1);
+		System.out.println(bookNo);
+		if(idx == -1) {
+			throw new NotSelectedException();
+		}
+		
+		ReturnScreen frame = new ReturnScreen();
+		frame.setVisible(true);
+		RentInfo selectedRentInfo = returnService.showRentInfoByRentNo(new RentInfo(rentNo));
+		
+		int membNo = selectedRentInfo.getMembNo().getMembno();
+		MembInfo memb = service.showMembInfoByNo1(membNo);
+		System.out.println(memb);
+		frame.getpMembTable3().setItem(memb);  //첫화면 대여정보 더블클릭하면 반납화면 디테일 세팅
+		
+		frame.getpMembTable3().getRentTable().selectRentInfoByMembNo(memb); //대여화면 하단 대여 도서 리스트 세팅
+		frame.getpMembTable3().getRentTable().setList();
+		
+		frame.getpRentTable3().setItem(service.showBookInfoByNo1(bookNo));
+		frame.getpRentTable3().searchRentNo(new RentInfo(rentNo));
+		
+		
+	}
+
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+//	public void searchRentNo(RentInfo rentInfo) {
+//		RentInfo newRentInfo = service.showRentInfoByRentNo(rentInfo);
+//		
+//		int idx =0;
+//		for(int i = 0; i<list.size(); i++) {
+//			if((int)table.getValueAt(i, 0) == newRentInfo.getRentNo()) {
+//				idx = i;
+//				break;
+//			}
+//		}
+//		
+//		table.setRowSelectionInterval(idx, idx);
+//		table.scrollRectToVisible(new Rectangle(table.getCellRect(idx, idx, true)));
+//				
+//	}
 	
 	
 

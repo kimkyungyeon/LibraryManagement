@@ -111,7 +111,7 @@ public class pBookInfoTable extends AbstractCustomTablePanel<BookInfo> implement
 		}
 	}
 	//테이블에서 클릭하면 대여도서상세정보에 데이터 세팅
-	private void setItem(BookInfo bookInfo) {
+	public void setItem(BookInfo bookInfo) {
 		bookDetail.getTfBookTitle().setText(bookInfo.getBookTitle());
 		bookDetail.getTfBookNo().setText(bookInfo.getBookNo()+"");
 		bookDetail.getTfBookCategory().setText(bookInfo.getCategoryNo().getBookCategory());

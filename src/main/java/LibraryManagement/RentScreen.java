@@ -133,16 +133,10 @@ public class RentScreen extends JFrame implements ActionListener {
 		pBookTable.loadData();
 		panel_1.add(pBookTable);
 		
-		
 		pBookDetail = pBookTable.getBookDetail();
 		pRentCenter.add(pBookDetail);
 		
-		
-		
-		
-		
 		////////////////////////////////////////////////////////////////////////////////////
-		
 		
 		JPanel pRentSouth = new JPanel();
 		FlowLayout fl_pRentSouth = (FlowLayout) pRentSouth.getLayout();
@@ -170,6 +164,7 @@ public class RentScreen extends JFrame implements ActionListener {
 		try {
 			service.rentBookTransaction(pMembDetail.getMembNo(), pBookDetail.getBookNo());
 			JOptionPane.showMessageDialog(null, pMembDetail.getMembNo().getMembno()+ "회원의" +pBookDetail.getBookNo().getBookNo()+"도서 대출이 완료되었습니다.");
+			pBookTable.loadData();
 		}catch (NumberFormatException e1) {
 			JOptionPane.showMessageDialog(null, "회원, 도서정보를 입력하세요", "에러", JOptionPane.WARNING_MESSAGE);
 		}catch (SQLException e1) {

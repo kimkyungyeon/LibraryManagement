@@ -96,7 +96,6 @@ public class pReturnBookDetail extends JPanel {
 		tfBookCategory = new JTextField();
 		pBookCategory.add(tfBookCategory);
 		tfBookCategory.setColumns(10);
-		
 	}
 	
 	public RentInfo getBookNo() {
@@ -105,12 +104,10 @@ public class pReturnBookDetail extends JPanel {
 		return new RentInfo(newBookInfo);
 	}
 
-
 	public void clearTf() {
-		tfBookTitle.setText("");   
-		tfBookNo.setText("");        
-		tfBookCategory.setText("");  
-		                
+		tfBookTitle.setText("");
+		tfBookNo.setText("");
+		tfBookCategory.setText("");               
 	}
 
 }

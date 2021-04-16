@@ -103,7 +103,7 @@ public class pRentMembDetail extends JPanel {
 	}
 
 	private void initialize() {
-		setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "대여회원상세정보", TitledBorder.LEADING,
+		setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "회원상세정보", TitledBorder.LEADING,
 				TitledBorder.TOP, null, new Color(0, 0, 0)));
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 

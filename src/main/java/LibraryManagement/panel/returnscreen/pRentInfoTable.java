@@ -1,5 +1,6 @@
 package LibraryManagement.panel.returnscreen;
 
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -48,7 +49,11 @@ public class pRentInfoTable extends AbstractCustomTablePanel<RentInfo> implement
 	
 	//회원번호로 대여정보 검색한 테이블
 	public void selectRentInfoByMembNo(MembInfo membInfo) {
+		try {
 		list = service.showRentInfoByNo(membInfo);
+		} catch (NullPointerException e) {
+			
+		}
 	}
 
 	@Override
@@ -110,7 +115,7 @@ public class pRentInfoTable extends AbstractCustomTablePanel<RentInfo> implement
 		}
 	}
 
-	private void setItem(BookInfo bookInfo) {
+	public void setItem(BookInfo bookInfo) {
 		rentDetail.getTfBookTitle().setText(bookInfo.getBookTitle());
 		rentDetail.getTfBookNo().setText(bookInfo.getBookNo()+"");
 		rentDetail.getTfBookCategory().setText(bookInfo.getCategoryNo().getBookCategory());
@@ -123,6 +128,22 @@ public class pRentInfoTable extends AbstractCustomTablePanel<RentInfo> implement
 		int bookNo = (int) table.getValueAt(idx, 1);
 		
 		return new RentInfo(rentNo,new BookInfo(bookNo));
+	}
+	
+	public void searchRentNo(RentInfo rentInfo) {
+		RentInfo newRentInfo = service.showRentInfoByRentNo(rentInfo);
+		
+		int idx =0;
+		for(int i = 0; i<list.size(); i++) {
+			if((int)table.getValueAt(i, 0) == newRentInfo.getRentNo()) {
+				idx = i;
+				break;
+			}
+		}
+		
+		table.setRowSelectionInterval(idx, idx);
+		table.scrollRectToVisible(new Rectangle(table.getCellRect(idx, idx, true)));
+				
 	}
 	
 	

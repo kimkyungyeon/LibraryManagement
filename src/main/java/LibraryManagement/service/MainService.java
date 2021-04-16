@@ -42,6 +42,14 @@ public class MainService {
 		return rentDao.selectRentInfoByMembNo(membInfo);
 	}
 	
+	public int deleteMembInfo(MembInfo membInfo) {
+		return membDao.deleteMembInfo(membInfo);
+	}
+	
+	public int modifyMembInfo(MembInfo membInfo) {
+		return membDao.updateMembInfo(membInfo);
+	}
+	
 	public int updateOverdate() {
 		return rentDao.updateBookOverDate();
 	}
@@ -57,6 +65,10 @@ public class MainService {
 	public List<BookInfo> showBookInfoByNo(BookInfo	bookInfo){
 		return bookDao.selectBookInfoByNo(bookInfo);
 	}
+	
+	public BookInfo showBookInfoByNo1(int bookNo) {
+		return bookDao.selectBookInfoByNo(bookNo);
+	}
 
 	public List<BookInfo> showBookInfoByTitle(BookInfo bookInfo) {
 		return bookDao.selectBookInfoByTitle(bookInfo);
@@ -64,6 +76,10 @@ public class MainService {
 
 	public List<BookInfo> showBookInfoByCateogry(BookInfo bookInfo) {
 		return bookDao.selectBookInfoByCategory(bookInfo);
+	}
+	
+	public RentInfo showRentInfoByRentNo(RentInfo rentInfo) {
+		return rentDao.selectRentInfoByRentNo(rentInfo);
 	}
 	
 }

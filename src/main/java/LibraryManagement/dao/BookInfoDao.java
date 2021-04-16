@@ -10,6 +10,7 @@ public interface BookInfoDao {
 	List<BookInfo> selectBookInfoByTitle(BookInfo bookInfo);
 	List<BookInfo> selectBookInfoByCategory(BookInfo bookInfo);
 	List<BookInfo> selectBookInfoByRentYN(BookInfo bookInfo);
+	BookInfo selectBookInfoByNo(int bookNo);
 	
 	
 	int insertBookInfo(BookInfo bookInfo);

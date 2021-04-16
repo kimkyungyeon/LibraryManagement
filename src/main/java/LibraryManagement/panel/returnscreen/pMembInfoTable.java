@@ -142,6 +142,8 @@ public class pMembInfoTable extends AbstractCustomTablePanel<MembInfo> implement
 
 		} catch (NullPointerException e1) {
 			JOptionPane.showMessageDialog(null, "대여정보가 없습니다.");
+			rentTable.initList();
+			rentTable.setList();
 		}
 	}
 
@@ -156,6 +158,7 @@ public class pMembInfoTable extends AbstractCustomTablePanel<MembInfo> implement
 	//테이블에서 클릭하면 대여회원상세정보에 데이터 세팅
 	public void setItem(MembInfo membInfo) {
 		membDetail.getTfMembName().setText(membInfo.getMembName());
+		System.out.println(1);
 		membDetail.getTfMembNo().setText(membInfo.getMembno()+"");
 		membDetail.getTfBirthYear().setText(membInfo.getMembBirth().getYear()+1900+"");
 		membDetail.getTfBirthMonth().setText(membInfo.getMembBirth().getMonth()+1+"");
@@ -164,6 +167,8 @@ public class pMembInfoTable extends AbstractCustomTablePanel<MembInfo> implement
 		membDetail.getTfMembTel().setText(membInfo.getMembTel());
 		membDetail.getTfMembPhone().setText(membInfo.getMembPhone());
 	}
+	
+
 	
 	
 }

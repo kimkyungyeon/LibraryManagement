@@ -78,7 +78,7 @@ public class pBookSearch extends JPanel implements ActionListener {
 
 				try {
 					actionPerformedTfBookSearchByNo(e);
-				} catch (NullPointerException e1) {
+				} catch (NumberFormatException e1) {
 					pBookTable.initList();
 					pBookTable.setList();
 				}

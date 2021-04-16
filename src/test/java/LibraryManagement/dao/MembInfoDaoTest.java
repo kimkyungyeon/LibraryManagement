@@ -75,7 +75,7 @@ public class MembInfoDaoTest {
 	}
 	
 //	membno,membaccount,membName,membbirth,membtel,membphone,membaddr
-//	@Test
+	@Test
 	public void testInsertMembInfo() {
 		System.out.println("testInsertMembInfo");
 		
@@ -91,7 +91,7 @@ public class MembInfoDaoTest {
 		fail("Not yet implemented");
 	}
 
-//	@Test
+//	@Testr
 	public void testDeleteMembInfo() {
 		fail("Not yet implemented");
 	}

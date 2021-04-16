@@ -50,8 +50,23 @@ public class RentInfoDaoImpl implements RentInfoDao {
 	}
 
 	@Override
-	public List<RentInfo> selectRentInfoByRentNo(RentInfo rentInfo) {
-		
+	public RentInfo  selectRentInfoByRentNo(RentInfo rentInfo) {
+		String sql = "SELECT r.rentno , r.membno, r.bookno, b.booktitle, r.overdate , r.rentdate , r.returndate , c.categoryno , c.bookcategory "
+				+ " FROM bookinfo b JOIN rentinfo r " 
+				+ "	ON b.bookno = r.bookno join bookcategory c  on b.categoryno = c.categoryno "
+				+ " where r.rentno = ?";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setInt(1, rentInfo.getRentNo());
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) {
+					return getRentInfo(rs);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 

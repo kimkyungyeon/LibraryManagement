@@ -21,7 +21,6 @@ import LibraryManagement.exception.NotSelectedException;
 
 /**
  * @author lenovo
- *
  */
 @SuppressWarnings("serial")
 public abstract class AbstractCustomTablePanel<T> extends JPanel {
@@ -51,6 +50,7 @@ public abstract class AbstractCustomTablePanel<T> extends JPanel {
 	public void setPopupMenu(JPopupMenu popMenu) {
 		table.setComponentPopupMenu(popMenu);
 	}
+	
 	public abstract void initList();
 	
 	private void initialize() {

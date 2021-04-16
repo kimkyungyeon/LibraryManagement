@@ -11,7 +11,9 @@ insert into bookinfo values (40001,'The elements of statistical learning',1,1,5,
 							(40008,'Machine learning',1,2,5,5),
 							(40009,'Probabilistic robotics',1,4,5,5),
 							(40010,'Pattern recognition and machine learning',1,2,5,5);
-							
+
+						alter table membinfo auto_increment = 12012;
+						
 insert into membinfo values
 (12001,'gdhong','홍길동',19070405,'042-421-1739','010-9741-5821','대전'),
 (12002,'yskim','김연수',19850301,'064-446-8695','010-4568-5581','제주'),
@@ -35,7 +37,7 @@ create view vw_book_rentcategoryname
 as select b.bookno, booktitle, rentYN, b.categoryno, count, totalcount , c.bookcategory
 from bookinfo b join bookcategory c on b.categoryno  = c.categoryno
 				join rentinfo r on b.bookno = r.bookno;
-
+  
 select * from vw_book_categoryname;
 select * from bookinfo;
 select * from vw_rentbookinfo vr ;

@@ -25,6 +25,7 @@ public class LibraryManagementMain extends JFrame {
 	private pMembSearch pMainMembSearch;
 	private RentInfoTablePanel pMainRentTable;
 	private pBookSearch pMainBookSearch;
+//	private static LibraryManagementMain frame;
 	/**   
 	 * Launch the application. 
 	 */
@@ -48,6 +49,7 @@ public class LibraryManagementMain extends JFrame {
 	
 	
 	
+
 
 	/**
 	 * Create the frame.
