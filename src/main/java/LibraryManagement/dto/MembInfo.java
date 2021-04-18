@@ -53,6 +53,22 @@ public class MembInfo {
 		this.membAddr = membAddr;
 	}
 
+
+
+
+	public MembInfo(int membNo, String membAccount, String membName, String membTel, String membPhone,
+			String membAddr) {
+		this.membNo = membNo;
+		this.membAccount = membAccount;
+		this.membName = membName;
+		this.membTel = membTel;
+		this.membPhone = membPhone;
+		this.membAddr = membAddr;
+	}
+
+
+
+
 	public int getMembno() {
 		return membNo;
 	}
@@ -129,7 +145,7 @@ public class MembInfo {
 	public String toString() {
 		
 		return String.format(
-				"MembInfo [membno=%s, membAccount=%s, membName=%s, membBirth=%s, membTel=%s, membPhone=%s, membAddr=%s]",
+				"MembInfo [membno=%s, membAccount=%s, membName=%s, membBirth=%tF, membTel=%s, membPhone=%s, membAddr=%s]",
 				membNo, membAccount, membName, membBirth, membTel, membPhone, membAddr);
 	}
 	

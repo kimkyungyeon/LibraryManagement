@@ -20,16 +20,13 @@ public class pBookSearch extends JPanel implements ActionListener {
 	private JTextField tfBookSearch;
 	private JComboBox<String> cbBookSearchBy;
 	private String tfString;
-//	private MainService service;
 	private BookInfoTablePanel pBookTable;
 
 	/**
 	 * Create the panel.
 	 */
 	public pBookSearch() {
-//		service = new MainService();
 		pBookTable = new BookInfoTablePanel();
-//		pBookTable.setService(service);
 		initialize();
 	}
 

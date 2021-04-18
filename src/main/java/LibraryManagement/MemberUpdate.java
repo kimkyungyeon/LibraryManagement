@@ -1,7 +1,14 @@
 package LibraryManagement;
 
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -10,27 +17,34 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import LibraryManagement.dto.MembInfo;
-import javax.swing.JButton;
-import java.awt.Font;
+import LibraryManagement.panel.membmanagement.MembInfoTablePanel;
+import LibraryManagement.service.MainService;
 
-public class MemberUpdate extends JFrame {
+public class MemberUpdate extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField tfMembNo;
 	private JTextField tfMembName;
 	private JTextField tfMembAccount;
 	private JTextField tfMembBirth;
-	private JTextField tfMembTel;
 	private JTextField tfMembPhone;
 	private JTextField tfMembAddr;
 	private JPanel panel;
 	private JPanel panel_1;
 	private JPanel panel_2;
 	private JButton btnAccept;
+	private JTextField tfMembTel;
+	private MainService service;
+	private MembInfoTablePanel pTable ;
+//	private MembManagement membFrame = new MembManagement();
 
 
 
+	public void setpTable(MembInfoTablePanel pTable) {
+		this.pTable = pTable;
+	}
 	public MemberUpdate() {
+		service = new MainService();
 		initialize();
 	}
 	private void initialize() {
@@ -58,6 +72,7 @@ public class MemberUpdate extends JFrame {
 		contentPane.add(lblMembName);
 		
 		tfMembName = new JTextField();
+		tfMembName.setFont(new Font("굴림", Font.PLAIN, 17));
 		contentPane.add(tfMembName);
 		tfMembName.setColumns(10);
 		
@@ -87,6 +102,7 @@ public class MemberUpdate extends JFrame {
 		contentPane.add(lblMembTel);
 		
 		tfMembTel = new JTextField();
+		tfMembTel.setFont(new Font("굴림", Font.PLAIN, 17));
 		tfMembTel.setColumns(10);
 		contentPane.add(tfMembTel);
 		
@@ -96,6 +112,7 @@ public class MemberUpdate extends JFrame {
 		contentPane.add(lblMembPhone);
 		
 		tfMembPhone = new JTextField();
+		tfMembPhone.setFont(new Font("굴림", Font.PLAIN, 17));
 		tfMembPhone.setColumns(10);
 		contentPane.add(tfMembPhone);
 		
@@ -105,6 +122,7 @@ public class MemberUpdate extends JFrame {
 		contentPane.add(lblMembAddr);
 		
 		tfMembAddr = new JTextField();
+		tfMembAddr.setFont(new Font("굴림", Font.PLAIN, 17));
 		tfMembAddr.setColumns(10);
 		contentPane.add(tfMembAddr);
 		
@@ -119,6 +137,7 @@ public class MemberUpdate extends JFrame {
 		panel_1.add(panel_2);
 		
 		btnAccept = new JButton("수정");
+		btnAccept.addActionListener(this);
 		panel_1.add(btnAccept);
 	}
 	
@@ -131,5 +150,30 @@ public class MemberUpdate extends JFrame {
 		tfMembPhone.setText(membInfo.getMembPhone());
 		tfMembAddr.setText(membInfo.getMembAddr());
 	}
+	
+	public MembInfo getItem() {
+		int membNo = Integer.parseInt(tfMembNo.getText().trim());
+		String membName = tfMembName.getText().trim();
+		String membAccount = tfMembAccount.getText().trim();	
+		String membTel = tfMembTel.getText().trim();
+		String membPhone = tfMembPhone.getText().trim();
+		String membAddr = tfMembAddr.getText().trim();
+		
+		return new MembInfo(membNo, membAccount, membName, membTel, membPhone, membAddr);
+	}
 
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnAccept) {
+			actionPerformedBtnAccept(e);
+		}
+	}
+	
+	
+	
+	protected void actionPerformedBtnAccept(ActionEvent e) {
+		MembInfo updateMemb = getItem();
+		service.modifyMembInfo(updateMemb);
+		pTable.loadData();
+		dispose();
+	}
 }

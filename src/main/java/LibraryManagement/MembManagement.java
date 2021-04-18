@@ -26,6 +26,8 @@ public class MembManagement extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private MainService service;
 
+	
+
 	/**
 	 * Launch the application.
 	 */
@@ -75,6 +77,7 @@ public class MembManagement extends JFrame implements ActionListener {
 		pBtns.add(btnDelete);
 
 		pTable = new MembInfoTablePanel();
+		
 		pTable.setService(service);
 		pTable.loadData();
 		contentPane.add(pTable, BorderLayout.NORTH);
@@ -110,6 +113,7 @@ public class MembManagement extends JFrame implements ActionListener {
 				MembInfo selMemb = pTable.getItem();
 				MembInfo selectedMemb = service.showMembInfoByNo(selMemb).get(0);
 				MemberUpdate frame = new MemberUpdate();
+				frame.setpTable(pTable);
 				frame.setVisible(true);
 				frame.setItem(selectedMemb);
 			}
@@ -127,7 +131,10 @@ public class MembManagement extends JFrame implements ActionListener {
 		MembInfo selMemb = pTable.getItem();
 		MembInfo selectedMemb = service.showMembInfoByNo(selMemb).get(0);
 		MemberUpdate frame = new MemberUpdate();
+		frame.setpTable(pTable);
 		frame.setVisible(true);
 		frame.setItem(selectedMemb);
 	}
+	
+	
 }

@@ -102,7 +102,7 @@ public class BookInfoDaoImpl implements BookInfoDao {
 
 	@Override
 	public int insertBookInfo(BookInfo bookInfo) {
-		// TODO Auto-generated method stub
+		String sql = "insert into bookInfo values ()";
 		return 0;
 	}
 

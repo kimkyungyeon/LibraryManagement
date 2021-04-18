@@ -113,6 +113,7 @@ public class MembInfoDaoImpl implements MembInfoDao {
 			pstmt.setString(1, membInfo.getMembAccount());
 			pstmt.setString(2, membInfo.getMembName());
 			pstmt.setTimestamp(3, new Timestamp(membInfo.getMembBirth().getTime()));
+			System.out.println( new Timestamp(membInfo.getMembBirth().getTime()));
 //		pstmt.setTimestamp(4, new Timestamp(MembInfo.getMembBirth().getTime()));
 //		System.out.println("dd");
 			pstmt.setString(4, membInfo.getMembTel());

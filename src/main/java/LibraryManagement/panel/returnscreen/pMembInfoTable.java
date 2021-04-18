@@ -158,7 +158,6 @@ public class pMembInfoTable extends AbstractCustomTablePanel<MembInfo> implement
 	//테이블에서 클릭하면 대여회원상세정보에 데이터 세팅
 	public void setItem(MembInfo membInfo) {
 		membDetail.getTfMembName().setText(membInfo.getMembName());
-		System.out.println(1);
 		membDetail.getTfMembNo().setText(membInfo.getMembno()+"");
 		membDetail.getTfBirthYear().setText(membInfo.getMembBirth().getYear()+1900+"");
 		membDetail.getTfBirthMonth().setText(membInfo.getMembBirth().getMonth()+1+"");

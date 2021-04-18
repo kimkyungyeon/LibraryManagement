@@ -74,6 +74,9 @@ select membno, membName, membaccount ,membtel ,membphone
 from membinfo m 
 where  ;
 
+select * from vw_book_categoryname vbc ;
+
+
 
 delete from membinfo;
 truncate table bookinfo ;

@@ -33,7 +33,7 @@ public class MembInfoDaoTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
+//	@Test
 	public void test04SelectMembInfoByAll() {
 		System.out.println("testSelectMembInfoByAll");
 		List<MembInfo> membInfoList = dao.selectMembInfoByAll();
@@ -44,7 +44,7 @@ public class MembInfoDaoTest {
 		}
 	}
 
-	@Test
+//	@Test
 	public void test03SelectMembInfoByMembNo() {
 		System.out.println("testSelectMembInfoByMembNo");
 		MembInfo newMembInfo = new MembInfo(12001);
@@ -55,7 +55,7 @@ public class MembInfoDaoTest {
 		
 	}
 
-	@Test
+//	@Test
 	public void test02SelectMembInfoByMembName() {
 		System.out.println("testSelectMembInfoByMembName");
 		MembInfo newMembInfo = new MembInfo("길");
@@ -64,7 +64,7 @@ public class MembInfoDaoTest {
 		System.out.println(membInfoListByName);
 	}
 
-	@Test
+//	@Test
 	public void test01SelectMembInfoByMembAccount() {
 		System.out.println("testSelectMembInfoByMembAccount");
 		MembInfo newMembInfo = new SubMembInfo("k");
