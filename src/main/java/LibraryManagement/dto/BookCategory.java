@@ -39,7 +39,7 @@ public class BookCategory {
 
 	@Override
 	public String toString() {
-		return String.format("BookCategory [categoryNo=%s, bookCategory=%s]", categoryNo, bookCategory);
+		return String.format("%s(%s)", bookCategory , categoryNo);
 	}
 
 	

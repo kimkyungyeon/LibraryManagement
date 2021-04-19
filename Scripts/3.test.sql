@@ -78,6 +78,4 @@ select * from vw_book_categoryname vbc ;
 
 
 
-delete from membinfo;
-truncate table bookinfo ;
-truncate table rentinfo ; 
+select * from bookInfo;

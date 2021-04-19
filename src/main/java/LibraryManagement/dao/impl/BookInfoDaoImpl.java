@@ -102,7 +102,21 @@ public class BookInfoDaoImpl implements BookInfoDao {
 
 	@Override
 	public int insertBookInfo(BookInfo bookInfo) {
-		String sql = "insert into bookInfo values ()";
+		String sql = "insert into bookInfo values (?,?,?,?,?,?)";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setInt(1, bookInfo.getBookNo());
+			pstmt.setString(2, bookInfo.getBookTitle());
+			pstmt.setInt(3, 1);
+			pstmt.setInt(4, bookInfo.getCategoryNo().getCategoryNo());
+			pstmt.setInt(5, bookInfo.getTotalcount());
+			pstmt.setInt(6, bookInfo.getTotalcount());
+			
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return 0;
 	}
 

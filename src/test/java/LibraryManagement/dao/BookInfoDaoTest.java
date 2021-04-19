@@ -85,9 +85,11 @@ public class BookInfoDaoTest {
 	}
 //
 //	@Test
-//	public void testInsertBookInfo() {
-//		fail("Not yet implemented");
-//	}
+	public void testInsertBookInfo() {
+		System.out.println("testInsertBookInfo");
+		BookInfo newBookInfo = new BookInfo(40011,"홍길동전",true,new BookCategory(1),6,5);
+		int res = dao.insertBookInfo(newBookInfo);
+	}
 //
 //	@Test
 //	public void testUpdateBookInfo() {

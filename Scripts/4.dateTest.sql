@@ -17,7 +17,8 @@ from rentinfo r
 where (to_days(now())-to_days(rentdate)) >3;
 
 -- 3일이 넘는 경우 연체일 업데이트
-update rentinfo set overdate = (to_days(now())-to_days(rentdate))-3 where (to_days(now())-to_days(rentdate)) >3;
+update rentinfo set overdate = (to_days(now())-to_days(rentdate))-3 
+where (to_days(now())-to_days(rentdate)) >3;
 
 select * from rentinfo;
 

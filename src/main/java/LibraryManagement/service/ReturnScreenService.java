@@ -3,13 +3,16 @@ package LibraryManagement.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import LibraryManagement.dao.BookCategoryDao;
 import LibraryManagement.dao.BookInfoDao;
 import LibraryManagement.dao.MembInfoDao;
 import LibraryManagement.dao.RentInfoDao;
+import LibraryManagement.dao.impl.BookCategoryDaoImpl;
 import LibraryManagement.dao.impl.BookInfoDaoImpl;
 import LibraryManagement.dao.impl.MembInfoDaoImpl;
 import LibraryManagement.dao.impl.RentInfoDaoImpl;
 import LibraryManagement.dao.impl.TransAction;
+import LibraryManagement.dto.BookCategory;
 import LibraryManagement.dto.BookInfo;
 import LibraryManagement.dto.MembInfo;
 import LibraryManagement.dto.RentInfo;
@@ -18,6 +21,7 @@ public class ReturnScreenService {
 	private MembInfoDao membDao = MembInfoDaoImpl.getInstance();
 	private BookInfoDao bookDao = BookInfoDaoImpl.getInstance();
 	private RentInfoDao rentDao = RentInfoDaoImpl.getInstance();
+	private BookCategoryDao categoryDao = BookCategoryDaoImpl.getInstance();
 	private TransAction transDao = TransAction.getInstance();
 	
 	public List<MembInfo> showMembInfoAll() {
@@ -76,6 +80,12 @@ public class ReturnScreenService {
 		return transDao.transUpdateRentInfoAndUpdateBookInfo(rentInfo);
 	}
 	
+	public List<BookCategory> showBookCategoryAll(){
+		return categoryDao.selectBookCategoryByAll();
+	}
 	
+	public int addBookInfo(BookInfo bookInfo) {
+		return bookDao.insertBookInfo(bookInfo);
+	}
 	
 }

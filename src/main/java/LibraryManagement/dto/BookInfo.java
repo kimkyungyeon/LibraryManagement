@@ -49,6 +49,9 @@ public class BookInfo {
 		this.totalcount = totalcount;
 	}
 	
+	
+
+	
 
 	public int getBookNo() {
 		return bookNo;

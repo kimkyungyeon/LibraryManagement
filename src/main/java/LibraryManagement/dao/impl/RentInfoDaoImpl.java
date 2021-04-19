@@ -111,7 +111,6 @@ public class RentInfoDaoImpl implements RentInfoDao {
 
 	@Override
 	public List<RentInfo> selectRentInfoByBookNo(BookInfo bookInfo) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
