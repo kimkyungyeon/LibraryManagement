@@ -2,18 +2,19 @@ package LibraryManagement;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import LibraryManagement.dto.BookInfo;
 import LibraryManagement.panel.bookmanagement.BookInfoTablePanel;
 import LibraryManagement.panel.bookmanagement.pBookSearch;
 import LibraryManagement.service.ReturnScreenService;
-import javax.swing.JButton;
-import java.awt.FlowLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class BookManagement extends JFrame implements ActionListener {
 
@@ -46,7 +47,7 @@ public class BookManagement extends JFrame implements ActionListener {
 		initialize();
 	}
 	private void initialize() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 600, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -93,5 +94,13 @@ public class BookManagement extends JFrame implements ActionListener {
 		
 	}
 	protected void actionPerformedBtnUpdate(ActionEvent e) {
+		BookInfo selBookNo = pBookInfoTablePanel.getItem();
+		BookInfo selectedBook = service.showBookInfoByNo(selBookNo).get(0);
+		System.out.println(selectedBook);
+		BookUpdate frame = new BookUpdate();
+		//bookinsert창에서 수정하면 다른창에서 업데이트 되도록 table연결
+		frame.setBookTable(pBookInfoTablePanel);
+		frame.setVisible(true);
+		frame.setItem(selectedBook);
 	}
 }

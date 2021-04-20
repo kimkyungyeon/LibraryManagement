@@ -97,6 +97,15 @@ public class BookInfoTablePanel extends AbstractCustomTablePanel<BookInfo> {
 			return this;
 		}
 	}
+	
+	public BookInfo getItem() {
+		int row = table.getSelectedRow();
+		int bookNo = (int) table.getValueAt(row, 0);
+		if(row == -1) {
+			throw	new NotSelectedException();
+		}
+		return new BookInfo(bookNo);
+	}
 
 	@Override
 	public void setList() {

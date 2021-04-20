@@ -110,12 +110,7 @@ public class MembManagement extends JFrame implements ActionListener {
 				pTable.loadData();
 			}
 			if (e.getActionCommand().equals("수정")) {
-				MembInfo selMemb = pTable.getItem();
-				MembInfo selectedMemb = service.showMembInfoByNo(selMemb).get(0);
-				MemberUpdate frame = new MemberUpdate();
-				frame.setpTable(pTable);
-				frame.setVisible(true);
-				frame.setItem(selectedMemb);
+				actionPerformedBtnUpdate(e);
 			}
 
 		}

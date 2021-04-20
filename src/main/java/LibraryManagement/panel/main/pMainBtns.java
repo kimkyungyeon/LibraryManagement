@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
+import LibraryManagement.BookCategoryManagement;
 import LibraryManagement.BookInsert;
 import LibraryManagement.BookManagement;
 import LibraryManagement.MembManagement;
@@ -19,6 +20,7 @@ public class pMainBtns extends JPanel implements ActionListener {
 	private JButton btnReturn;
 	private JButton btnMembInfo;
 	private JButton btnBookInfo;
+	private JButton btnBookCategory;
 
 	/**
 	 * Create the panel.
@@ -46,9 +48,16 @@ public class pMainBtns extends JPanel implements ActionListener {
 		btnBookInfo = new JButton("도서관리");
 		btnBookInfo.addActionListener(this);
 		add(btnBookInfo);
+		
+		btnBookCategory = new JButton("도서구분관리");
+		btnBookCategory.addActionListener(this);
+		add(btnBookCategory);
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnBookCategory) {
+			actionPerformedBtnBookCategory(e);
+		}
 		if (e.getSource() == btnBookInfo) {
 			actionPerformedBtnBookInfo(e);
 		}
@@ -76,6 +85,10 @@ public class pMainBtns extends JPanel implements ActionListener {
 	}
 	protected void actionPerformedBtnBookInfo(ActionEvent e) {
 		BookManagement frame = new BookManagement();
+		frame.setVisible(true);
+	}
+	protected void actionPerformedBtnBookCategory(ActionEvent e) {
+		BookCategoryManagement frame = new BookCategoryManagement();
 		frame.setVisible(true);
 	}
 }

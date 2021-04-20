@@ -88,4 +88,8 @@ public class ReturnScreenService {
 		return bookDao.insertBookInfo(bookInfo);
 	}
 	
+	public int modifyBookInfo(BookInfo bookInfo) {
+		return bookDao.updateBookInfo(bookInfo);
+	}
+	
 }
