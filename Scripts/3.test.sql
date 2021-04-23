@@ -76,6 +76,9 @@ where  ;
 
 select * from vw_book_categoryname vbc ;
 
+select * from vw_rentbookinfo vr ;
 
 
 select * from bookInfo;
+
+select * from bookcategory b ;

@@ -19,34 +19,24 @@ import javax.swing.border.EmptyBorder;
 import LibraryManagement.dto.MembInfo;
 import LibraryManagement.panel.membmanagement.MembInfoTablePanel;
 import LibraryManagement.service.MainService;
+import LibraryManagement.panel.membmanagement.pMembSearch;
 
 public class MembManagement extends JFrame implements ActionListener {
 
+	private JButton btnUpdate;
+	private pMembSearch pMembSearch;
 	private MembInfoTablePanel pTable;
 	private JPanel contentPane;
 	private MainService service;
 
 	
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MembManagement frame = new MembManagement();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
+//					MembManagement frame = new MembManagement();
+//					frame.setVisible(true);
+
+
+
 	public MembManagement() {
 		service = new MainService();
 		initialize();
@@ -66,36 +56,41 @@ public class MembManagement extends JFrame implements ActionListener {
 		flowLayout.setAlignment(FlowLayout.RIGHT);
 		contentPane.add(pBtns, BorderLayout.SOUTH);
 
-		JButton btnAdd = new JButton("회원추가");
-		pBtns.add(btnAdd);
+		pMembSearch = new pMembSearch();
+		contentPane.add(pMembSearch, BorderLayout.NORTH);
 
+
+		pTable = pMembSearch.getpMembTable();
+		pTable.setService(service);
+		pTable.loadData();
+		contentPane.add(pTable, BorderLayout.CENTER);
+
+		
+		btnAdd = new JButton("회원추가");
+		btnAdd.addActionListener(this);
+		pBtns.add(btnAdd);
+		
 		btnUpdate = new JButton("회원수정");
 		btnUpdate.addActionListener(this);
 		pBtns.add(btnUpdate);
-
-		JButton btnDelete = new JButton("회원삭제");
-		pBtns.add(btnDelete);
-
-		pTable = new MembInfoTablePanel();
 		
-		pTable.setService(service);
-		pTable.loadData();
-		contentPane.add(pTable, BorderLayout.NORTH);
-
 		JPopupMenu popupMenu = createPopupMenu();
 		pTable.setPopupMenu(popupMenu);
+		
 	}
 
 	private JPopupMenu createPopupMenu() {
 		JPopupMenu popupMenu = new JPopupMenu();
-
+		
+		JMenuItem addItem = new JMenuItem("추가");
+		addItem.addActionListener(popupMenuListener);
+		popupMenu.add(addItem);
+		
 		JMenuItem updateItem = new JMenuItem("수정");
 		updateItem.addActionListener(popupMenuListener);
 		popupMenu.add(updateItem);
 
-		JMenuItem deleteItem = new JMenuItem("삭제");
-		deleteItem.addActionListener(popupMenuListener);
-		popupMenu.add(deleteItem);
+
 
 		return popupMenu;
 	}
@@ -104,20 +99,21 @@ public class MembManagement extends JFrame implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getActionCommand().equals("삭제")) {
-				MembInfo selMemb = pTable.getItem();
-				service.deleteMembInfo(selMemb);
-				pTable.loadData();
-			}
 			if (e.getActionCommand().equals("수정")) {
 				actionPerformedBtnUpdate(e);
+			}
+			if (e.getActionCommand().equals("추가")) {
+				actionPerformedBtnAdd(e);
 			}
 
 		}
 	};
-	private JButton btnUpdate;
+	private JButton btnAdd;
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnAdd) {
+			actionPerformedBtnAdd(e);
+		}
 		if (e.getSource() == btnUpdate) {
 			actionPerformedBtnUpdate(e);
 		}
@@ -132,4 +128,9 @@ public class MembManagement extends JFrame implements ActionListener {
 	}
 	
 	
+	protected void actionPerformedBtnAdd(ActionEvent e) {
+		MemberInsert frame = new MemberInsert();
+		frame.setpTable(pTable);
+		frame.setVisible(true);
+	}
 }

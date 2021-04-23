@@ -1,7 +1,11 @@
 package LibraryManagement;
 
 import java.awt.GridLayout;
+import java.util.Date;
+import java.util.List;
+import java.util.OptionalInt;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -9,27 +13,39 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import LibraryManagement.dto.MembInfo;
-import javax.swing.JButton;
+import com.toedter.calendar.JDateChooser;
 
-public class MemberInsert extends JFrame {
+import LibraryManagement.dto.MembInfo;
+import LibraryManagement.panel.membmanagement.MembInfoTablePanel;
+import LibraryManagement.service.ReturnScreenService;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class MemberInsert extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField tfMembNo;
 	private JTextField tfMembName;
 	private JTextField tfMembAccount;
-	private JTextField tfMembBirth;
 	private JTextField tfMembTel;
 	private JTextField tfMembPhone;
 	private JTextField tfMembAddr;
 	private JPanel panel;
 	private JPanel panel_1;
 	private JPanel panel_2;
-	private JButton btnAccept;
+	private JButton btnAdd;
+	private JDateChooser dcMembBirth;
+	private MembInfoTablePanel pTable;
+	private ReturnScreenService service;
 
 
 
+
+	public void setpTable(MembInfoTablePanel pTable) {
+		this.pTable = pTable;
+	}
 	public MemberInsert() {
+		service = new ReturnScreenService();
 		initialize();
 	}
 	private void initialize() {
@@ -47,6 +63,7 @@ public class MemberInsert extends JFrame {
 		
 		tfMembNo = new JTextField();
 		tfMembNo.setEditable(false);
+		tfMembNo.setText(getLastMembNo()+"");
 		contentPane.add(tfMembNo);
 		tfMembNo.setColumns(10);
 		
@@ -70,9 +87,8 @@ public class MemberInsert extends JFrame {
 		lblMembBirth.setHorizontalAlignment(SwingConstants.TRAILING);
 		contentPane.add(lblMembBirth);
 		
-		tfMembBirth = new JTextField();
-		tfMembBirth.setColumns(10);
-		contentPane.add(tfMembBirth);
+		dcMembBirth = new JDateChooser();
+		contentPane.add(dcMembBirth);
 		
 		JLabel lblMembTel = new JLabel("전화번호");
 		lblMembTel.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -108,18 +124,49 @@ public class MemberInsert extends JFrame {
 		panel_2 = new JPanel();
 		panel_1.add(panel_2);
 		
-		btnAccept = new JButton("수정");
-		panel_1.add(btnAccept);
+		btnAdd = new JButton("추가");
+		btnAdd.addActionListener(this);
+		panel_1.add(btnAdd);
 	}
 	
 	public void setItem(MembInfo membInfo) {
 		tfMembNo.setText(membInfo.getMembno()+"");
 		tfMembName.setText(membInfo.getMembName());
 		tfMembAccount.setText(membInfo.getMembAccount());
-		tfMembBirth.setText(membInfo.getMembBirth()+"");
 		tfMembTel.setText(membInfo.getMembTel());
 		tfMembPhone.setText(membInfo.getMembPhone());
 		tfMembAddr.setText(membInfo.getMembAddr());
 	}
+	
+	public int getLastMembNo() {
+//		System.out.println(service.showBookInfoAll());
+		List<MembInfo> list = service.showMembInfoAll();
 
+		OptionalInt maxMembNo = service.showMembInfoAll().parallelStream().mapToInt(MembInfo::getMembNo).max();
+		int maxMembNo1 = maxMembNo.getAsInt() + 1;
+		return maxMembNo1;
+	}
+	
+	public MembInfo getItem() {
+		String membAccount = tfMembAccount.getText().trim();
+		String membName = tfMembName.getText().trim();
+		Date membBirth = dcMembBirth.getDate();
+		String membTel = tfMembTel.getText().trim();
+		String membPhone = tfMembPhone.getText().trim();
+		String membAddr = tfMembAddr.getText().trim();
+		return new MembInfo(membAccount, membName, membBirth, membTel, membPhone, membAddr);
+		
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnAdd) {
+			actionPerformedBtnAdd(e);
+		}
+	}
+	protected void actionPerformedBtnAdd(ActionEvent e) {
+		MembInfo addMemb = getItem();
+		service.addMembInfo(addMemb);
+		pTable.loadData();
+		dispose();
+	}
 }

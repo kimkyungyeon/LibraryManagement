@@ -97,13 +97,29 @@ public class BookCategoryDaoImpl implements BookCategoryDao {
 
 	@Override
 	public int insertBookCategory(BookCategory bc) {
-		// TODO Auto-generated method stub
+		String sql = "insert into bookcategory values (? , ?)";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setInt(1, bc.getCategoryNo());
+			pstmt.setString(2, bc.getBookCategory());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return 0;
 	}
 
 	@Override
 	public int updateBookCategory(BookCategory bc) {
-		// TODO Auto-generated method stub
+		String sql = "update bookcategory set bookcategory = ? where categoryno = ?";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setString(1, bc.getBookCategory());
+			pstmt.setInt(2, bc.getCategoryNo());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return 0;
 	}
 

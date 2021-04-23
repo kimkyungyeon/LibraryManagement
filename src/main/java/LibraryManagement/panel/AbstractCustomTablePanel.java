@@ -33,6 +33,16 @@ public abstract class AbstractCustomTablePanel<T> extends JPanel {
 	}
 	
 
+	public JTable getTable() {
+		return table;
+	}
+
+
+	public void setTable(JTable table) {
+		this.table = table;
+	}
+
+
 	public T getItem() {
 		int idx = table.getSelectedRow();
 		if(idx == -1) {

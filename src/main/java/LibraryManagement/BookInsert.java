@@ -42,19 +42,16 @@ public class BookInsert extends JFrame implements ActionListener {
 		initialize();
 		addDataCmb();
 	}
-	
-	
+
 	public void setBookTable(BookInfoTablePanel bookTable) {
 		this.bookTable = bookTable;
 	}
-
 
 	private void addDataCmb() {
 		List<BookCategory> category = service.showBookCategoryAll();
 		DefaultComboBoxModel<BookCategory> model = new DefaultComboBoxModel<BookCategory>(new Vector<>(category));
 		cbBookCategory.setModel(model);
 	}
-
 
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -64,55 +61,55 @@ public class BookInsert extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(0, 2, 20, 20));
 		setTitle("도서추가");
-		
+
 		JLabel lblBookNo = new JLabel("도서번호");
-		
+
 		lblBookNo.setHorizontalAlignment(SwingConstants.TRAILING);
 		contentPane.add(lblBookNo);
-		
+
 		tfBookNo = new JTextField();
 		tfBookNo.setEditable(false);
-		tfBookNo.setText(getLastBookNo()+"");
+		tfBookNo.setText(getLastBookNo() + "");
 		tfBookNo.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(tfBookNo);
 		tfBookNo.setColumns(10);
-		
+
 		JLabel lblBookTitle = new JLabel("도서제목");
 		lblBookTitle.setHorizontalAlignment(SwingConstants.TRAILING);
 		contentPane.add(lblBookTitle);
-		
+
 		tfBookTitle = new JTextField();
 		tfBookTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(tfBookTitle);
 		tfBookTitle.setColumns(10);
-		
+
 		JLabel lblBookCategory = new JLabel("도서구분");
 		lblBookCategory.setHorizontalAlignment(SwingConstants.TRAILING);
 		contentPane.add(lblBookCategory);
-		
+
 		cbBookCategory = new JComboBox();
 		contentPane.add(cbBookCategory);
-		
+
 		JLabel lblTotalCount = new JLabel("도서권수");
 		lblTotalCount.setHorizontalAlignment(SwingConstants.TRAILING);
 		contentPane.add(lblTotalCount);
-		
+
 		tfTotalCount = new JTextField();
 		tfTotalCount.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(tfTotalCount);
 		tfTotalCount.setColumns(10);
-		
+
 		JPanel panel = new JPanel();
 		contentPane.add(panel);
-		
+
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1);
 		panel_1.setLayout(new GridLayout(0, 2, 10, 10));
-		
+
 		btnAdd = new JButton("추 가");
 		btnAdd.addActionListener(this);
 		panel_1.add(btnAdd);
-		
+
 		btnClear = new JButton("취 소");
 		btnClear.addActionListener(this);
 		panel_1.add(btnClear);
@@ -123,17 +120,10 @@ public class BookInsert extends JFrame implements ActionListener {
 			actionPerformedBtnClear(e);
 		}
 		if (e.getSource() == btnAdd) {
-			if(btnAdd.getText().contentEquals("추가")) {
+
 			actionPerformedBtnAdd(e);
-			} else {
-				actionPerformedBtnUpdate(e);
-			}
 		}
 	}
-	private void actionPerformedBtnUpdate(ActionEvent e) {
-		System.out.println("수정");
-	}
-
 
 	protected void actionPerformedBtnAdd(ActionEvent e) {
 		BookInfo addBookInfo = getItem();
@@ -141,21 +131,19 @@ public class BookInsert extends JFrame implements ActionListener {
 		bookTable.loadData();
 		dispose();
 	}
-	
+
 	protected void actionPerformedBtnClear(ActionEvent e) {
 		clearTf();
 	}
-	
-	
+
 	private void clearTf() {
 		tfBookTitle.setText("");
 		tfTotalCount.setText("");
 		cbBookCategory.setSelectedIndex(0);
 	}
 
-
-	//textfield,combobox에서 값을 받아서 추가하기 위한 새로운 BookInfo dto 생성 
-	public BookInfo getItem(){
+	// textfield,combobox에서 값을 받아서 추가하기 위한 새로운 BookInfo dto 생성
+	public BookInfo getItem() {
 		int bookNo = Integer.parseInt(tfBookNo.getText().trim());
 		String bookTitle = tfBookTitle.getText().trim();
 		boolean rentYN = true;
@@ -165,32 +153,31 @@ public class BookInsert extends JFrame implements ActionListener {
 		return new BookInfo(bookNo, bookTitle, rentYN, categoryNo, count, totalCount);
 	}
 
-
-	//콤보박스에서 BookCategory dto 추출
+	// 콤보박스에서 BookCategory dto 추출
 	public BookCategory getBookCategory() {
-		String categoryNo1 = cbBookCategory.getSelectedItem()+"";
-		String a = categoryNo1.substring(categoryNo1.indexOf("(")+1, categoryNo1.indexOf(")"));
+		String categoryNo1 = cbBookCategory.getSelectedItem() + "";
+		String a = categoryNo1.substring(categoryNo1.indexOf("(") + 1, categoryNo1.indexOf(")"));
 		String c = categoryNo1.substring(0, categoryNo1.indexOf("("));
 		int b = Integer.parseInt(a);
-		BookCategory categoryNo = new BookCategory(b,c);
+		BookCategory categoryNo = new BookCategory(b, c);
 
 		return categoryNo;
 	}
-	
+
 	public int getLastBookNo() {
 //		System.out.println(service.showBookInfoAll());
 		List<BookInfo> list = service.showBookInfoAll();
-		
+
 		OptionalInt maxBookNo = service.showBookInfoAll().parallelStream().mapToInt(BookInfo::getBookNo).max();
-		int maxBookNo1 = maxBookNo.getAsInt()+1;
+		int maxBookNo1 = maxBookNo.getAsInt() + 1;
 		return maxBookNo1;
 	}
 
 	public void setItem(BookInfo bookInfo) {
-		tfBookNo.setText(bookInfo.getBookNo()+"");
+		tfBookNo.setText(bookInfo.getBookNo() + "");
 		tfBookTitle.setText(bookInfo.getBookTitle());
-		tfTotalCount.setText(bookInfo.getTotalcount()+"");
-		cbBookCategory.setSelectedItem(bookInfo.getCategoryNo().getCategoryNo()+1);
+		tfTotalCount.setText(bookInfo.getTotalcount() + "");
+		cbBookCategory.setSelectedItem(bookInfo.getCategoryNo().getCategoryNo() + 1);
 	}
 
 	public JButton getBtnAdd() {

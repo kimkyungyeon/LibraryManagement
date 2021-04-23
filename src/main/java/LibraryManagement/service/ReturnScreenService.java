@@ -40,6 +40,10 @@ public class ReturnScreenService {
 		return membDao.selectMembInfoByMembAccount(membinfo);
 	}
 	
+	public int addMembInfo(MembInfo membInfo) {
+		return membDao.insertMembInfo(membInfo);
+	}
+	
 	public MembInfo showMembInfoByNo1(int membNo) {
 		return membDao.selectMembInfoByMembNo(membNo);
 	}
@@ -82,6 +86,14 @@ public class ReturnScreenService {
 	
 	public List<BookCategory> showBookCategoryAll(){
 		return categoryDao.selectBookCategoryByAll();
+	}
+	
+	public int addBookCategory(BookCategory bc) {
+		return categoryDao.insertBookCategory(bc);		
+	}
+	
+	public int modifyBookCategory(BookCategory bc) {
+		return categoryDao.updateBookCategory(bc);
 	}
 	
 	public int addBookInfo(BookInfo bookInfo) {

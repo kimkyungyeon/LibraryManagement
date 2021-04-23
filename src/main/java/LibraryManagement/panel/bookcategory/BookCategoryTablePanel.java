@@ -3,11 +3,20 @@ package LibraryManagement.panel.bookcategory;
 import javax.swing.SwingConstants;
 
 import LibraryManagement.dto.BookCategory;
+import LibraryManagement.dto.BookInfo;
+import LibraryManagement.exception.NotSelectedException;
 import LibraryManagement.panel.AbstractCustomTablePanel;
 import LibraryManagement.service.ReturnScreenService;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 
 public class BookCategoryTablePanel extends AbstractCustomTablePanel<BookCategory> {
-	private ReturnScreenService service;
+	public BookCategoryTablePanel() {
+		initialize();
+	}
+	private void initialize() {
+	}
+	private ReturnScreenService service = new ReturnScreenService();
 
 	@Override
 	public void initList() {
@@ -41,4 +50,31 @@ public class BookCategoryTablePanel extends AbstractCustomTablePanel<BookCategor
 	
 	
 
+//	public void mouseClicked(MouseEvent e) {
+//	}
+//	public void mouseEntered(MouseEvent e) {
+//	}
+//	public void mouseExited(MouseEvent e) {
+//	}
+//	public void mousePressed(MouseEvent e) {
+//		if (e.getSource() == table) {
+//			mousePressedThisTable(e);
+//		}
+//	}
+//	public void mouseReleased(MouseEvent e) {
+//	}
+//	protected void mousePressedThisTable(MouseEvent e) {
+//		BookCategory bc = getItem();
+//		
+//	}
+	
+	public BookCategory getItem() {
+		int row = table.getSelectedRow();
+		int categoryNo = (int) table.getValueAt(row, 0);
+		String bookCategory = (String) table.getValueAt(row, 1);
+		if(row == -1) {
+			throw	new NotSelectedException();
+		}
+		return new BookCategory(categoryNo,bookCategory);
+	}
 }
