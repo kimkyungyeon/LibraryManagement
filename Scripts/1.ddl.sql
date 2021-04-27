@@ -114,6 +114,8 @@ ALTER TABLE LibraryManagement.bookInfo
 		REFERENCES LibraryManagement.bookcategory ( -- 도서구분
 			categoryno -- 구분번호
 		);
+	
+
 grant all on librarymanagement.* to 'user_librarymanagement'@'localhost' identified by 'rootroot';
 
 create view vw_rentbookinfo
