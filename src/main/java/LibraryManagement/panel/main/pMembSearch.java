@@ -4,12 +4,17 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import LibraryManagement.dto.MembInfo;
 
 @SuppressWarnings("serial")
 public class pMembSearch extends JPanel implements ActionListener {
@@ -73,18 +78,37 @@ public class pMembSearch extends JPanel implements ActionListener {
 		if (e.getSource() == tfMembSearch) {
 			if (tfString.equals("회원번호")) {
 				// 메인화면 좌측 텍스트필드 빈칸 검색시 전체 회원 출력 예외처리
+
 				try {
 					actionPerformedTfMembSearchByNo(e);
 				} catch (NumberFormatException e1) {
-					pMembTable.loadData();
+					if (tfMembSearch.getText().trim().equals("")) {
+						pMembTable.loadData();
+					} else {
+						pMembTable.nullList();
+						JOptionPane.showMessageDialog(null, "해당하는 회원이 존재하지 않습니다.", "경고", JOptionPane.WARNING_MESSAGE);
+					}
 
+				} catch (NullPointerException e1) {
+					JOptionPane.showMessageDialog(null, "해당하는 회원이 존재하지 않습니다.", "경고", JOptionPane.WARNING_MESSAGE);
+					pMembTable.nullList();
 				}
 			}
 			if (tfString.equals("이름")) {
-				actionPerformedTfMembSearchByName(e);
+				try {
+					actionPerformedTfMembSearchByName(e);
+				} catch (NullPointerException e1) {
+					JOptionPane.showMessageDialog(null, "해당하는 회원이 존재하지 않습니다.", "경고", JOptionPane.WARNING_MESSAGE);
+					pMembTable.nullList();
+				}
 			}
 			if (tfString.equals("계정")) {
-				actionPerformedTfMembSearchByAccount(e);
+				try {
+					actionPerformedTfMembSearchByAccount(e);
+				} catch (NullPointerException e1) {
+					JOptionPane.showMessageDialog(null, "해당하는 회원이 존재하지 않습니다.", "경고", JOptionPane.WARNING_MESSAGE);
+					pMembTable.nullList();
+				}
 			}
 
 		}

@@ -2,6 +2,8 @@ package LibraryManagement.panel.rentScreen;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.print.Book;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -26,6 +28,11 @@ public class pBookInfoTable extends AbstractCustomTablePanel<BookInfo> implement
 	public void initList() {
 		list = service.showBookInfoAll();
 
+	}
+	
+	public void nullList() {
+		list = new ArrayList<BookInfo>();
+		setList();
 	}
 	public pRentBookDetail getBookDetail() {
 		return bookDetail;

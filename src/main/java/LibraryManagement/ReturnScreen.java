@@ -161,8 +161,8 @@ public class ReturnScreen extends JFrame implements ActionListener {
 	protected void actionPerformedBtnReturn(ActionEvent e) {
 		try {
 			service.returnBookTransaction(pRentTable3.getRentNo());
-			JOptionPane.showMessageDialog(null, pMembDetail3.getMembNo().getMembName()
-					+"("+pMembDetail3.getMembNo().getMembno()+") 회원의  "+ pRentDetail3.getBookNo().getBookNo()+"도서 반납이 완료되었습니다." );
+			JOptionPane.showMessageDialog(null, 
+					pMembDetail3.getMembNo().getMembno()+" 회원의  "+ pRentDetail3.getBookNo().getBookNo().getBookNo()+"도서 반납이 완료되었습니다." );
 			
 			pRentTable3.selectRentInfoByMembNo(pMembDetail3.getMembNo());
 			pRentTable3.setList();

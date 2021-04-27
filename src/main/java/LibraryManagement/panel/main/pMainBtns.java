@@ -49,9 +49,9 @@ public class pMainBtns extends JPanel implements ActionListener {
 		btnBookInfo.addActionListener(this);
 		add(btnBookInfo);
 		
-		btnBookCategory = new JButton("도서구분관리");
-		btnBookCategory.addActionListener(this);
-		add(btnBookCategory);
+//		btnBookCategory = new JButton("도서구분관리");
+//		btnBookCategory.addActionListener(this);
+//		add(btnBookCategory);
 	}
 
 	public void actionPerformed(ActionEvent e) {

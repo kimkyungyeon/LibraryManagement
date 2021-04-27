@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -71,15 +72,33 @@ public class pBookSearch extends JPanel implements ActionListener {
 				try {
 					actionPerformedTfBookSearchByNo(e);
 				} catch (NumberFormatException e1) {
-					pBookTable.initList();
-					pBookTable.setList();
+					if(tfBookSearch.getText().trim().equals("")) {
+						pBookTable.loadData();
+					}else {
+						pBookTable.nullList();
+						JOptionPane.showMessageDialog(null, "해당하는 도서가 존재하지 않습니다.", "경고", JOptionPane.WARNING_MESSAGE);
+					}
+					
+				} catch (NullPointerException e1) {
+					JOptionPane.showMessageDialog(null, "해당하는 도서가 존재하지 않습니다.", "경고", JOptionPane.WARNING_MESSAGE);
+					pBookTable.nullList();
 				}
 			}
 			if (tfString.equals("도서제목")) {
-				actionPerformedTfBookSearchByTitle(e);
+				try {
+					actionPerformedTfBookSearchByTitle(e);
+				} catch (NullPointerException e1) {
+					JOptionPane.showMessageDialog(null, "해당하는 도서가 존재하지 않습니다.", "경고", JOptionPane.WARNING_MESSAGE);
+					pBookTable.nullList();
+				}
 			}
 			if (tfString.equals("도서구분")) {
-				actionPerformedTfBookSearchByCategory(e);
+				try {
+					actionPerformedTfBookSearchByCategory(e);
+				} catch (NullPointerException e1) {
+					JOptionPane.showMessageDialog(null, "해당하는 도서가 존재하지 않습니다.", "경고", JOptionPane.WARNING_MESSAGE);
+					pBookTable.nullList();
+				}
 			}
 		}
 	}

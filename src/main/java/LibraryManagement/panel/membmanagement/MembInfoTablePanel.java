@@ -1,5 +1,7 @@
 package LibraryManagement.panel.membmanagement;
 
+import java.util.ArrayList;
+
 import javax.swing.SwingConstants;
 
 import LibraryManagement.dto.MembInfo;
@@ -14,6 +16,11 @@ public class MembInfoTablePanel extends AbstractCustomTablePanel<MembInfo> {
 	@Override
 	public void initList() {
 		list = service.showMembInfoAll();
+	}
+	
+	public void nullList() {
+		list = new ArrayList<MembInfo>();
+		setList();
 	}
 
 	// 콤보박스 회원번호 설정 후 검색

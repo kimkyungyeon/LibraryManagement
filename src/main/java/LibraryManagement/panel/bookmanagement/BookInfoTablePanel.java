@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -32,8 +33,13 @@ public class BookInfoTablePanel extends AbstractCustomTablePanel<BookInfo> {
 	@Override
 	public void initList() {
 		list = service.showBookInfoAll();
-
 	}
+	
+	public void nullList() {
+		list = new ArrayList<BookInfo>();
+		setList();
+	}
+	
 	//콤보박스 도서번호 선택후 검색
 	public void selectByNoList(int bookNo) {
 //		list = new ArrayList<BookInfo>();

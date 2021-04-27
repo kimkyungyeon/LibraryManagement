@@ -4,10 +4,12 @@ import java.awt.GridLayout;
 import java.util.Date;
 import java.util.List;
 import java.util.OptionalInt;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -16,6 +18,8 @@ import javax.swing.border.EmptyBorder;
 import com.toedter.calendar.JDateChooser;
 
 import LibraryManagement.dto.MembInfo;
+import LibraryManagement.exception.FormatException;
+import LibraryManagement.exception.InvalidCheckException;
 import LibraryManagement.panel.membmanagement.MembInfoTablePanel;
 import LibraryManagement.service.ReturnScreenService;
 import java.awt.event.ActionListener;
@@ -148,6 +152,8 @@ public class MemberInsert extends JFrame implements ActionListener {
 	}
 	
 	public MembInfo getItem() {
+		typeCheck();
+		validCheck();
 		String membAccount = tfMembAccount.getText().trim();
 		String membName = tfMembName.getText().trim();
 		Date membBirth = dcMembBirth.getDate();
@@ -155,12 +161,46 @@ public class MemberInsert extends JFrame implements ActionListener {
 		String membPhone = tfMembPhone.getText().trim();
 		String membAddr = tfMembAddr.getText().trim();
 		return new MembInfo(membAccount, membName, membBirth, membTel, membPhone, membAddr);
-		
+	}
+	public void typeCheck() {
+		if (!(Pattern.matches("^[가-힣]*$", tfMembName.getText().trim())
+				||Pattern.matches("^[가-힣]*$", tfMembAddr.getText().trim()))) {
+			throw new FormatException();
+		}
 	}
 
+	public void validCheck() {
+		if(tfMembName.getText().trim().equals("")) {
+			throw new InvalidCheckException();
+		}
+		if(tfMembAccount.getText().trim().equals("")) {
+			throw new InvalidCheckException();
+		}
+		if(dcMembBirth.getDate().equals(null)) {
+			throw new InvalidCheckException();
+		}
+		if(tfMembTel.getText().trim().equals("")) {
+			throw new InvalidCheckException();
+		}
+		if(tfMembPhone.getText().trim().equals("")) {
+			throw new InvalidCheckException();
+		}
+		if(tfMembAddr.getText().trim().equals("")) {
+			throw new InvalidCheckException();
+		}
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnAdd) {
+			try {
 			actionPerformedBtnAdd(e);
+			}catch (FormatException e1) {
+				JOptionPane.showMessageDialog(null, "형식이 맞지 않습니다.", "오류", JOptionPane.ERROR_MESSAGE);
+			} catch (InvalidCheckException e1) {
+				JOptionPane.showMessageDialog(null, "공백이 존재합니다.", "오류", JOptionPane.ERROR_MESSAGE);
+			} catch (NullPointerException e1) {
+				JOptionPane.showMessageDialog(null, "공백이 존재합니다.", "오류", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 	protected void actionPerformedBtnAdd(ActionEvent e) {

@@ -122,6 +122,7 @@ public class pReturnMembDetail extends JPanel {
 		panel_4.add(lblMembName);
 
 		tfMembName = new JTextField();
+		tfMembName.setEditable(false);
 		panel_4.add(tfMembName);
 		tfMembName.setColumns(3);
 
@@ -130,6 +131,7 @@ public class pReturnMembDetail extends JPanel {
 		panel_4.add(lblMembNo);
 
 		tfMembNo = new JTextField();
+		tfMembNo.setEditable(false);
 		panel_4.add(tfMembNo);
 		tfMembNo.setColumns(3);
 
@@ -142,6 +144,7 @@ public class pReturnMembDetail extends JPanel {
 		panel_5.add(lblMembBirth);
 
 		tfBirthYear = new JTextField();
+		tfBirthYear.setEditable(false);
 		panel_5.add(tfBirthYear);
 		tfBirthYear.setColumns(10);
 
@@ -149,6 +152,7 @@ public class pReturnMembDetail extends JPanel {
 		panel_5.add(lblBirthYear);
 
 		tfBirthMonth = new JTextField();
+		tfBirthMonth.setEditable(false);
 		panel_5.add(tfBirthMonth);
 		tfBirthMonth.setColumns(5);
 
@@ -156,6 +160,7 @@ public class pReturnMembDetail extends JPanel {
 		panel_5.add(lblBirthMonth);
 
 		tfBirthDay = new JTextField();
+		tfBirthDay.setEditable(false);
 		panel_5.add(tfBirthDay);
 		tfBirthDay.setColumns(5);
 
@@ -171,6 +176,7 @@ public class pReturnMembDetail extends JPanel {
 		panel_6.add(lblMembAddr);
 
 		tfMembAddr = new JTextField();
+		tfMembAddr.setEditable(false);
 		panel_6.add(tfMembAddr);
 		tfMembAddr.setColumns(10);
 
@@ -191,6 +197,7 @@ public class pReturnMembDetail extends JPanel {
 		panel_3.add(lblMembTel);
 
 		tfMembTel = new JTextField();
+		tfMembTel.setEditable(false);
 		panel_3.add(tfMembTel);
 		tfMembTel.setColumns(10);
 
@@ -199,6 +206,7 @@ public class pReturnMembDetail extends JPanel {
 		panel_3.add(lblMembPhone);
 
 		tfMembPhone = new JTextField();
+		tfMembPhone.setEditable(false);
 		panel_3.add(tfMembPhone);
 		tfMembPhone.setColumns(10);
 	}

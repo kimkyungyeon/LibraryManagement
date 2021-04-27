@@ -5,7 +5,7 @@ delete from membinfo where membname ='김경연';
 
 select categoryno, bookcategory from bookcategory;
 select bookno,booktitle,rentYN,categoryno,count,totalcount  from bookinfo;
-select * from rentinfo r ;
+select * from rentinfo r;
 insert into rentinfo  (membno , bookno, rentdate, returndate , overdate)  values ( 12004, 40008, now(),null,0);
 select * from bookcategory b ;
 select * from rentinfo r2 ;
@@ -76,9 +76,10 @@ where  ;
 
 select * from vw_book_categoryname vbc ;
 
-select * from vw_rentbookinfo vr ;
-
+select * from vw_rentbookinfo vr;
 
 select * from bookInfo;
 
 select * from bookcategory b ;
+
+update membinfo set membaccount = 'kskim'  where membno = 12013;

@@ -70,6 +70,7 @@ public class pReturnBookDetail extends JPanel {
 		pBookTitle.add(lblBookTitle);
 		
 		tfBookTitle = new JTextField();
+		tfBookTitle.setEditable(false);
 		pBookTitle.add(tfBookTitle);
 		tfBookTitle.setColumns(30);
 		
@@ -82,6 +83,7 @@ public class pReturnBookDetail extends JPanel {
 		pBookNo.add(lblBookNo);
 		
 		tfBookNo = new JTextField();
+		tfBookNo.setEditable(false);
 		pBookNo.add(tfBookNo);
 		tfBookNo.setColumns(10);
 		
@@ -94,6 +96,7 @@ public class pReturnBookDetail extends JPanel {
 		pBookCategory.add(lblBookCategory);
 		
 		tfBookCategory = new JTextField();
+		tfBookCategory.setEditable(false);
 		pBookCategory.add(tfBookCategory);
 		tfBookCategory.setColumns(10);
 	}

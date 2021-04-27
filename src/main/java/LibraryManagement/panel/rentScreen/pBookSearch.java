@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -68,7 +69,7 @@ public class pBookSearch extends JPanel implements ActionListener {
 		tfBookSearch.addActionListener(this);
 		tfBookSearch.setColumns(20);
 		add(tfBookSearch);
-		
+
 		btnSearch = new JButton("검색");
 		btnSearch.addActionListener(this);
 		add(btnSearch);
@@ -82,18 +83,39 @@ public class pBookSearch extends JPanel implements ActionListener {
 			if (tfString.equals("도서번호")) {
 				try {
 					actionPerformedBtnSearchByNo(e);
+				} catch (NumberFormatException e1) {
+					if (tfBookSearch.getText().trim().equals("")) {
+						pBookTable.loadData();
+					} else {
+						pBookTable.nullList();
+						JOptionPane.showMessageDialog(null, "해당하는 도서가 존재하지 않습니다.", "경고", JOptionPane.WARNING_MESSAGE);
+					}
+
 				} catch (NullPointerException e1) {
-					pBookTable.loadData();
+					JOptionPane.showMessageDialog(null, "해당하는 도서가 존재하지 않습니다.", "경고", JOptionPane.WARNING_MESSAGE);
+					pBookTable.nullList();
 				}
 			}
 			if (tfString.equals("도서제목")) {
-				actionPerformedBtnSearchByTitle(e);
+				try {
+					actionPerformedBtnSearchByTitle(e);
+				} catch (NullPointerException e1) {
+					JOptionPane.showMessageDialog(null, "해당하는 도서가 존재하지 않습니다.", "경고", JOptionPane.WARNING_MESSAGE);
+					pBookTable.nullList();
+				}
 			}
 			if (tfString.equals("도서구분")) {
-				actionPerformedBtnSearchByCategory(e);
+				try {
+					actionPerformedBtnSearchByCategory(e);
+				} catch (NullPointerException e1) {
+					JOptionPane.showMessageDialog(null, "해당하는 도서가 존재하지 않습니다.", "경고", JOptionPane.WARNING_MESSAGE);
+					pBookTable.nullList();
+				}
 			}
 		}
 	}
+
+	
 
 	// 콤보박스 도서구부능로 선택후 검색
 	private void actionPerformedBtnSearchByCategory(ActionEvent e) {
@@ -114,7 +136,7 @@ public class pBookSearch extends JPanel implements ActionListener {
 	// 콤보박스 도서번호로 선택후 검색
 	private void actionPerformedBtnSearchByNo(ActionEvent e) {
 		int bookNo = Integer.parseInt(tfBookSearch.getText().trim());
-		
+
 		pBookTable.selectByNoList(bookNo);
 		pBookTable.setList();
 

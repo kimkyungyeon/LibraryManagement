@@ -1,19 +1,23 @@
 package LibraryManagement.panel.main;
 
-import java.awt.Rectangle;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
 import LibraryManagement.ReturnScreen;
 import LibraryManagement.dto.MembInfo;
 import LibraryManagement.dto.RentInfo;
 import LibraryManagement.exception.NotSelectedException;
 import LibraryManagement.panel.AbstractCustomTablePanel;
-import LibraryManagement.panel.returnscreen.pRentInfoTable;
 import LibraryManagement.panel.returnscreen.pReturnMembDetail;
 import LibraryManagement.service.MainService;
 import LibraryManagement.service.ReturnScreenService;
@@ -52,16 +56,52 @@ public class RentInfoTablePanel extends AbstractCustomTablePanel<RentInfo> imple
 	} 
 	
 	
+	public void setTableCellCondition(int...idx) {
+		ConditionTableCellRenderer ctcr = new ConditionTableCellRenderer();
+		TableColumnModel tcm = table.getColumnModel();
+		
+		for(int i=0; i<idx.length; i++)
+		tcm.getColumn(idx[i]).setCellRenderer(ctcr);
+	}
 	
+	private class ConditionTableCellRenderer extends JLabel implements TableCellRenderer{
+
+		@Override
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+				int row, int column) {
+			setText(value == null ? ""  :value.toString());
+			setOpaque(true);
+			int isRent = (int) table.getValueAt(row, 3);
+			setTableAlign(SwingConstants.CENTER, 3);
+			if(isRent>3) {
+				setBackground(Color.PINK);
+			} else{
+				setBackground(Color.WHITE);
+			}
+			return this;
+		}
+	}
+	
+	
+	
+	
+	@Override
+	public void setList() {
+		super.setList();
+		setTableCellCondition(5);
+	}
+
+
 	@Override
 	public String[] getColumnNames() {
 		
-		return new String[] {"대여번호", "도서번호", "도서제목", "도서연체일", "도서대여일"};
+		return new String[] {"대여번호", "도서번호", "도서제목", "도서연체일", "도서대여일","연체여부"};
 	}
 
 	@Override
 	protected void setAlignAndWidth() {
 		setTableAlign(SwingConstants.CENTER, 0,1,2,3,4);
+		setTableCellWidth(100,100,100,100,100,30);
 	}
 
 	@Override
@@ -73,7 +113,7 @@ public class RentInfoTablePanel extends AbstractCustomTablePanel<RentInfo> imple
 	public void setService(MainService service) {
 		this.service = service;
 	}
-
+	
 
 	@Override
 	public void mouseClicked(MouseEvent e) {

@@ -117,7 +117,7 @@ ALTER TABLE LibraryManagement.bookInfo
 grant all on librarymanagement.* to 'user_librarymanagement'@'localhost' identified by 'rootroot';
 
 create view vw_rentbookinfo
-as
+as;
 select r.bookno , b.booktitle ,b.count,b.totalcount ,r.overdate ,r.rentdate ,r.membno , m.membName ,c.bookcategory 
 from rentinfo r join bookinfo b on r.bookno  = b.bookno 
 				join membinfo m on r.membno = m.membno

@@ -2,6 +2,7 @@
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -21,6 +22,7 @@ public class pMembInfoTablePanel extends AbstractCustomTablePanel<MembInfo> impl
 	private MainService service;
 
 	
+	
 	public pMembInfoTablePanel() {
 		rentList = new RentInfoTablePanel();
 		table.addMouseListener(this);
@@ -29,6 +31,11 @@ public class pMembInfoTablePanel extends AbstractCustomTablePanel<MembInfo> impl
 	@Override
 	public void initList() {
 		list = service.showMembInfoAll();
+	}
+	
+	public void nullList() {
+		list = new ArrayList<MembInfo>();
+		setList();
 	}
 	
 	// 콤보박스 회원번호 설정 후 검색 

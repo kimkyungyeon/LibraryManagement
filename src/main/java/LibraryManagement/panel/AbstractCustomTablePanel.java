@@ -52,6 +52,13 @@ public abstract class AbstractCustomTablePanel<T> extends JPanel {
 		
 	}
 	
+	
+	
+	public List<T> getList() {
+		return list;
+	}
+
+
 	public void loadData() {
 		initList();
 		setList();

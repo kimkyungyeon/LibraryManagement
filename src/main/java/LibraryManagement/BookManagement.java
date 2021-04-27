@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -24,9 +25,10 @@ public class BookManagement extends JFrame implements ActionListener {
 	private JButton btnUpdate;
 	private pBookSearch pBookSearch;
 	private BookInfoTablePanel pBookInfoTablePanel;
+	private JButton btnCategory;
 
 
-	public static void main(String[] args) {
+	/*ublic static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -37,7 +39,7 @@ public class BookManagement extends JFrame implements ActionListener {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
@@ -72,6 +74,10 @@ public class BookManagement extends JFrame implements ActionListener {
 		
 		btnAdd = new JButton("도서추가");
 		btnAdd.addActionListener(this);
+		
+		btnCategory = new JButton("도서구분관리");
+		btnCategory.addActionListener(this);
+		pBtns.add(btnCategory);
 		pBtns.add(btnAdd);
 		
 		btnUpdate = new JButton("도서수정");
@@ -80,8 +86,15 @@ public class BookManagement extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnCategory) {
+			actionPerformedBtnCategory(e);
+		}
 		if (e.getSource() == btnUpdate) {
+			try {
 			actionPerformedBtnUpdate(e);
+			} catch(IndexOutOfBoundsException e1) {
+				JOptionPane.showMessageDialog(null, "수정할 도서를 선택하세요", "알림",JOptionPane.WARNING_MESSAGE);
+			}
 		}
 		if (e.getSource() == btnAdd) {
 			actionPerformedBtnAdd(e);
@@ -102,5 +115,9 @@ public class BookManagement extends JFrame implements ActionListener {
 		frame.setBookTable(pBookInfoTablePanel);
 		frame.setVisible(true);
 		frame.setItem(selectedBook);
+	}
+	protected void actionPerformedBtnCategory(ActionEvent e) {
+		BookCategoryManagement frame = new BookCategoryManagement();
+		frame.setVisible(true);
 	}
 }

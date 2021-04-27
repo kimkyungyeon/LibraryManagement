@@ -4,19 +4,20 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import LibraryManagement.dto.MembInfo;
+import LibraryManagement.exception.FormatException;
+import LibraryManagement.exception.InvalidCheckException;
 import LibraryManagement.panel.membmanagement.MembInfoTablePanel;
 import LibraryManagement.service.MainService;
 
@@ -152,6 +153,8 @@ public class MemberUpdate extends JFrame implements ActionListener {
 	}
 	
 	public MembInfo getItem() {
+		typeCheck();
+		validCheck();
 		int membNo = Integer.parseInt(tfMembNo.getText().trim());
 		String membName = tfMembName.getText().trim();
 		String membAccount = tfMembAccount.getText().trim();	
@@ -161,10 +164,43 @@ public class MemberUpdate extends JFrame implements ActionListener {
 		
 		return new MembInfo(membNo, membAccount, membName, membTel, membPhone, membAddr);
 	}
+	
+	public void typeCheck() {
+		if (!(Pattern.matches("^[가-힣]*$", tfMembName.getText().trim())
+				||Pattern.matches("^[가-힣]*$", tfMembAddr.getText().trim()))) {
+			throw new FormatException();
+		}
+	}
+
+	public void validCheck() {
+		if(tfMembName.getText().trim().equals("")) {
+			throw new InvalidCheckException();
+		}
+		if(tfMembAccount.getText().trim().equals("")) {
+			throw new InvalidCheckException();
+		}
+		if(tfMembTel.getText().trim().equals("")) {
+			throw new InvalidCheckException();
+		}
+		if(tfMembPhone.getText().trim().equals("")) {
+			throw new InvalidCheckException();
+		}
+		if(tfMembAddr.getText().trim().equals("")) {
+			throw new InvalidCheckException();
+		}
+	}
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnAccept) {
+			try {
 			actionPerformedBtnAccept(e);
+			}catch (FormatException e1) {
+				JOptionPane.showMessageDialog(null, "형식이 맞지 않습니다.", "오류", JOptionPane.ERROR_MESSAGE);
+			} catch (InvalidCheckException e1) {
+				JOptionPane.showMessageDialog(null, "공백이 존재합니다.", "오류", JOptionPane.ERROR_MESSAGE);
+			} catch (NullPointerException e1) {
+				JOptionPane.showMessageDialog(null, "공백이 존재합니다.", "오류", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 	

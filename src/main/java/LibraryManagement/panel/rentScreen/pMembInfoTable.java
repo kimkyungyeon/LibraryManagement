@@ -2,6 +2,7 @@
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -31,6 +32,10 @@ public class pMembInfoTable extends AbstractCustomTablePanel<MembInfo> implement
 		return membDetail;
 	}
 
+	public void nullList() {
+		list = new ArrayList<MembInfo>();
+		setList();
+	}
 	
 
 	@Override

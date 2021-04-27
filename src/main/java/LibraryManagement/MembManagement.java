@@ -29,13 +29,8 @@ public class MembManagement extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private MainService service;
 
-	
-
-
 //					MembManagement frame = new MembManagement();
 //					frame.setVisible(true);
-
-
 
 	public MembManagement() {
 		service = new MainService();
@@ -59,38 +54,34 @@ public class MembManagement extends JFrame implements ActionListener {
 		pMembSearch = new pMembSearch();
 		contentPane.add(pMembSearch, BorderLayout.NORTH);
 
-
 		pTable = pMembSearch.getpMembTable();
 		pTable.setService(service);
 		pTable.loadData();
 		contentPane.add(pTable, BorderLayout.CENTER);
 
-		
 		btnAdd = new JButton("회원추가");
 		btnAdd.addActionListener(this);
 		pBtns.add(btnAdd);
-		
+
 		btnUpdate = new JButton("회원수정");
 		btnUpdate.addActionListener(this);
 		pBtns.add(btnUpdate);
-		
+
 		JPopupMenu popupMenu = createPopupMenu();
 		pTable.setPopupMenu(popupMenu);
-		
+
 	}
 
 	private JPopupMenu createPopupMenu() {
 		JPopupMenu popupMenu = new JPopupMenu();
-		
+
 		JMenuItem addItem = new JMenuItem("추가");
 		addItem.addActionListener(popupMenuListener);
 		popupMenu.add(addItem);
-		
+
 		JMenuItem updateItem = new JMenuItem("수정");
 		updateItem.addActionListener(popupMenuListener);
 		popupMenu.add(updateItem);
-
-
 
 		return popupMenu;
 	}
@@ -100,7 +91,11 @@ public class MembManagement extends JFrame implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getActionCommand().equals("수정")) {
-				actionPerformedBtnUpdate(e);
+				try {
+					actionPerformedBtnUpdate(e);
+				} catch (IndexOutOfBoundsException e1) {
+					JOptionPane.showMessageDialog(null, "수정할 회원 선택하세요", "알림", JOptionPane.WARNING_MESSAGE);
+				}
 			}
 			if (e.getActionCommand().equals("추가")) {
 				actionPerformedBtnAdd(e);
@@ -115,9 +110,14 @@ public class MembManagement extends JFrame implements ActionListener {
 			actionPerformedBtnAdd(e);
 		}
 		if (e.getSource() == btnUpdate) {
-			actionPerformedBtnUpdate(e);
+			try {
+				actionPerformedBtnUpdate(e);
+			} catch (IndexOutOfBoundsException e1) {
+				JOptionPane.showMessageDialog(null, "수정할 회원 선택하세요", "알림", JOptionPane.WARNING_MESSAGE);
+			}
 		}
 	}
+
 	protected void actionPerformedBtnUpdate(ActionEvent e) {
 		MembInfo selMemb = pTable.getItem();
 		MembInfo selectedMemb = service.showMembInfoByNo(selMemb).get(0);
@@ -126,8 +126,7 @@ public class MembManagement extends JFrame implements ActionListener {
 		frame.setVisible(true);
 		frame.setItem(selectedMemb);
 	}
-	
-	
+
 	protected void actionPerformedBtnAdd(ActionEvent e) {
 		MemberInsert frame = new MemberInsert();
 		frame.setpTable(pTable);

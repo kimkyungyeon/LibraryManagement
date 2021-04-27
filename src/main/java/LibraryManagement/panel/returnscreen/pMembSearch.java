@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -69,7 +70,7 @@ public class pMembSearch extends JPanel implements ActionListener {
 		tfMembSearch.addActionListener(this);
 		add(tfMembSearch);
 		tfMembSearch.setColumns(20);
-		
+
 		btnSearch = new JButton("검 색");
 		btnSearch.addActionListener(this);
 		add(btnSearch);
@@ -101,22 +102,41 @@ public class pMembSearch extends JPanel implements ActionListener {
 //				}
 //			}
 //		}
-		if(e.getSource() == btnSearch) {
-			if(tfString.equals("회원번호")) {
+		if (e.getSource() == btnSearch) {
+			if (tfString.equals("회원번호")) {
 				try {
 					actionPerformedBtnSearchByNo(e);
-				}catch (NumberFormatException e1){
-					pMembTable.loadData();
+				} catch (NumberFormatException e1) {
+					if (tfMembSearch.getText().trim().equals("")) {
+						pMembTable.loadData();
+					} else {
+						pMembTable.nullList();
+						JOptionPane.showMessageDialog(null, "해당하는 회원이 존재하지 않습니다.", "경고", JOptionPane.WARNING_MESSAGE);
+					}
+
+				} catch (NullPointerException e1) {
+					JOptionPane.showMessageDialog(null, "해당하는 회원이 존재하지 않습니다.", "경고", JOptionPane.WARNING_MESSAGE);
+					pMembTable.nullList();
 				}
 			}
 			if (tfString.equals("이름")) {
-				actionPerformedBtnSearchByName(e);
+				try {
+					actionPerformedBtnSearchByName(e);
+				} catch (NullPointerException e1) {
+					JOptionPane.showMessageDialog(null, "해당하는 회원이 존재하지 않습니다.", "경고", JOptionPane.WARNING_MESSAGE);
+					pMembTable.nullList();
+				}
 			}
 			if (tfString.equals("계정")) {
-				actionPerformedBtnSearchByAccount(e);
+				try {
+					actionPerformedBtnSearchByAccount(e);
+				} catch (NullPointerException e1) {
+					JOptionPane.showMessageDialog(null, "해당하는 회원이 존재하지 않습니다.", "경고", JOptionPane.WARNING_MESSAGE);
+					pMembTable.nullList();
+				}
 			}
 		}
-		
+
 	}
 
 	private void actionPerformedBtnSearchByAccount(ActionEvent e) {
@@ -134,7 +154,6 @@ public class pMembSearch extends JPanel implements ActionListener {
 
 	protected void actionPerformedBtnSearchByNo(ActionEvent e) {
 		int membNo = Integer.parseInt(tfMembSearch.getText().trim());
-		
 
 		pMembTable.selectByNoList(membNo);
 		pMembTable.setList();
@@ -146,6 +165,7 @@ public class pMembSearch extends JPanel implements ActionListener {
 		tfString = cbMembSearchBy.getSelectedItem().toString();
 
 	}
+
 	protected void actionPerformedBtnSearch(ActionEvent e) {
 	}
 }

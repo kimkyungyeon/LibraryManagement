@@ -6,12 +6,14 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.OptionalInt;
 import java.util.Vector;
+import java.util.regex.Pattern;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -19,6 +21,8 @@ import javax.swing.border.TitledBorder;
 
 import LibraryManagement.dto.BookCategory;
 import LibraryManagement.dto.BookInfo;
+import LibraryManagement.exception.FormatException;
+import LibraryManagement.exception.InvalidCheckException;
 import LibraryManagement.panel.bookmanagement.BookInfoTablePanel;
 import LibraryManagement.service.ReturnScreenService;
 
@@ -120,8 +124,13 @@ public class BookInsert extends JFrame implements ActionListener {
 			actionPerformedBtnClear(e);
 		}
 		if (e.getSource() == btnAdd) {
-
+			try {
 			actionPerformedBtnAdd(e);
+			} catch (FormatException e1) {
+				JOptionPane.showMessageDialog(null, "형식이 맞지 않습니다.", "오류", JOptionPane.ERROR_MESSAGE);
+			} catch (InvalidCheckException e1) {
+				JOptionPane.showMessageDialog(null, "공백이 존재합니다.", "오류", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 
@@ -144,6 +153,8 @@ public class BookInsert extends JFrame implements ActionListener {
 
 	// textfield,combobox에서 값을 받아서 추가하기 위한 새로운 BookInfo dto 생성
 	public BookInfo getItem() {
+		typeCheck();
+		validCheck();
 		int bookNo = Integer.parseInt(tfBookNo.getText().trim());
 		String bookTitle = tfBookTitle.getText().trim();
 		boolean rentYN = true;
@@ -182,5 +193,21 @@ public class BookInsert extends JFrame implements ActionListener {
 
 	public JButton getBtnAdd() {
 		return btnAdd;
+	}
+	
+	public void typeCheck() {
+		if (!(Pattern.matches("^[0-9]*$", tfTotalCount.getText().trim()))) {
+			System.out.println(1);
+			throw new FormatException();
+		}
+	}
+	
+	public void validCheck() {
+		if(tfBookTitle.getText().trim().equals("")) {
+			throw new InvalidCheckException();
+		}
+		if(tfTotalCount.getText().trim().equals("")) {
+			throw new InvalidCheckException();
+		}
 	}
 }
