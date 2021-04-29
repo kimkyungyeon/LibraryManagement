@@ -142,6 +142,7 @@ public class RentInfoTablePanel extends AbstractCustomTablePanel<RentInfo> imple
 		frame.getpMembTable3().setItem(memb);  //첫화면 대여정보 더블클릭하면 반납화면 디테일 세팅
 		
 		frame.getpMembTable3().getRentTable().selectRentInfoByMembNo(memb); //대여화면 하단 대여 도서 리스트 세팅
+		frame.getpMembTable3().searchMembNo(new RentInfo(rentNo));
 		frame.getpMembTable3().getRentTable().setList();
 		
 		frame.getpRentTable3().setItem(service.showBookInfoByNo1(bookNo));

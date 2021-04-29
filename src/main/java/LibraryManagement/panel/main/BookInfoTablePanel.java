@@ -127,6 +127,7 @@ public class BookInfoTablePanel extends AbstractCustomTablePanel<BookInfo> imple
 		RentScreen frame = new RentScreen();
 		BookInfo selectedBookInfo = service.showBookInfoByNo(new BookInfo(bookNo)).get(0);
 		frame.getpBookTable().setItem(selectedBookInfo);
+		frame.getpBookTable().searchBookNo(new BookInfo(bookNo));
 		frame.setVisible(true);
 	}
 	public void mouseEntered(MouseEvent e) {

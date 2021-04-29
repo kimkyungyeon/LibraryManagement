@@ -1,5 +1,6 @@
   package LibraryManagement.panel.rentScreen;
 
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -149,6 +150,21 @@ public class pMembInfoTable extends AbstractCustomTablePanel<MembInfo> implement
 		membDetail.getTfMembAddr().setText(membInfo.getMembAddr());
 		membDetail.getTfMembTel().setText(membInfo.getMembTel());
 		membDetail.getTfMembPhone().setText(membInfo.getMembPhone());
+	}
+	
+	public void searchMembNo(MembInfo membInfo) {
+		MembInfo newMembInfo = service.showMembInfoByNo(membInfo).get(0);
+		
+		int idx = 0;
+		for(int i = 0 ; i<list.size();i++) {
+			if((int)table.getValueAt(i, 0) == newMembInfo.getMembno()) {
+				idx = i;
+				break;
+			}
+		}
+		
+		table.setRowSelectionInterval(idx, idx);
+		table.scrollRectToVisible(new Rectangle(table.getCellRect(idx, idx, true)));
 	}
 	
 	

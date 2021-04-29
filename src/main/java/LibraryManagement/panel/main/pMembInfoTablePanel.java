@@ -113,7 +113,10 @@ public class pMembInfoTablePanel extends AbstractCustomTablePanel<MembInfo> impl
 		MembInfo selectedMembInfo = service.showMembInfoByNo1(userNo);
 		
 		frame.getpMembTable().setItem(selectedMembInfo);
-		frame.setVisible(true);		
+		frame.getpMembTable().searchMembNo(new MembInfo(userNo));
+		frame.setVisible(true);	
+		
+		
 	}
 
 	public void mouseEntered(MouseEvent e) {

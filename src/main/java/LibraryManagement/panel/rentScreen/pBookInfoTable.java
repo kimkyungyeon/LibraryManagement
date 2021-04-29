@@ -1,5 +1,6 @@
 package LibraryManagement.panel.rentScreen;
 
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.print.Book;
@@ -10,6 +11,7 @@ import javax.swing.SwingConstants;
 
 import LibraryManagement.dto.BookCategory;
 import LibraryManagement.dto.BookInfo;
+import LibraryManagement.dto.RentInfo;
 import LibraryManagement.exception.NotSelectedException;
 import LibraryManagement.panel.AbstractCustomTablePanel;
 import LibraryManagement.service.RentScreenService;
@@ -124,4 +126,19 @@ public class pBookInfoTable extends AbstractCustomTablePanel<BookInfo> implement
 		bookDetail.getTfBookCategory().setText(bookInfo.getCategoryNo().getBookCategory());
 	}
 	
+	public void searchBookNo(BookInfo bookInfo) {
+		BookInfo newBookInfo = service.showBookInfoByNo(bookInfo).get(0);
+		
+		int idx =0;
+		for(int i = 0; i<list.size(); i++) {
+			if((int)table.getValueAt(i, 0) == newBookInfo.getBookNo()) {
+				idx = i;
+				break;
+			}
+		}
+		
+		table.setRowSelectionInterval(idx, idx);
+		table.scrollRectToVisible(new Rectangle(table.getCellRect(idx, idx, true)));
+				
+	}
 }

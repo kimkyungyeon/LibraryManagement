@@ -1,5 +1,6 @@
   package LibraryManagement.panel.returnscreen;
 
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -171,6 +172,20 @@ public class pMembInfoTable extends AbstractCustomTablePanel<MembInfo> implement
 		membDetail.getTfMembPhone().setText(membInfo.getMembPhone());
 	}
 	
+	public void searchMembNo(RentInfo rentInfo) {
+		RentInfo newRentInfo = service.showRentInfoByRentNo(rentInfo);
+		
+		int idx = 0;
+		for(int i = 0; i<list.size();i++) {
+			if((int)table.getValueAt(i, 0) == newRentInfo.getMembNo().getMembno()) {
+				idx = i;
+				break;
+			}
+		}
+		
+		table.setRowSelectionInterval(idx, idx);
+		table.scrollRectToVisible(new Rectangle(table.getCellRect(idx, idx, true)));
+	}
 
 	
 	

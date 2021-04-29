@@ -130,6 +130,8 @@ public class pRentInfoTable extends AbstractCustomTablePanel<RentInfo> implement
 		return new RentInfo(rentNo,new BookInfo(bookNo));
 	}
 	
+	
+	//Main화면에서 더블클릭하고 들어왔을때 테이블 클릭된것처럼 하는 메소드
 	public void searchRentNo(RentInfo rentInfo) {
 		RentInfo newRentInfo = service.showRentInfoByRentNo(rentInfo);
 		
