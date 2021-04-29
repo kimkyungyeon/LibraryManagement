@@ -1,3 +1,18 @@
+-- 대출정보
+DROP TABLE IF EXISTS LibraryManagement.rentinfo RESTRICT;
+
+-- 도서정보
+DROP TABLE IF EXISTS LibraryManagement.bookInfo RESTRICT;
+
+-- 회원정보
+DROP TABLE IF EXISTS LibraryManagement.membInfo RESTRICT;
+
+-- 도서구분
+DROP TABLE IF EXISTS LibraryManagement.bookcategory RESTRICT;
+
+-- 관리자계정
+DROP TABLE IF EXISTS LibraryManagement.adminTable RESTRICT;
+
 -- 도서관리
 DROP SCHEMA IF EXISTS LibraryManagement;
 
@@ -49,7 +64,7 @@ ALTER TABLE LibraryManagement.bookInfo
 -- 회원정보
 CREATE TABLE LibraryManagement.membInfo (
 	membno      INT(5)      NOT NULL COMMENT '회원번호', -- 회원번호
-	membaccount VARCHAR(30) NULL     unique COMMENT '회원계정', -- 회원계정
+	membaccount VARCHAR(30) NULL     COMMENT '회원계정', -- 회원계정
 	membName    VARCHAR(20) NOT NULL COMMENT '회원이름', -- 회원이름
 	membbirth   DATE        NULL     COMMENT '회원생년월일', -- 회원생년월일
 	membtel     VARCHAR(20) NULL     COMMENT '회원전화번호', -- 회원전화번호
@@ -85,6 +100,20 @@ ALTER TABLE LibraryManagement.bookcategory
 ALTER TABLE LibraryManagement.bookcategory
 	MODIFY COLUMN categoryno INT(5) NOT NULL AUTO_INCREMENT COMMENT '구분번호';
 
+-- 관리자계정
+CREATE TABLE LibraryManagement.adminTable (
+	admin VARCHAR(30) NOT NULL COMMENT 'admin', -- admin
+	passwd   VARCHAR(50) NOT NULL COMMENT 'passwd' -- password
+)
+COMMENT '관리자계정';
+
+-- 관리자계정
+ALTER TABLE LibraryManagement.adminTable
+	ADD CONSTRAINT PK_adminTable -- 관리자계정 기본키
+		PRIMARY KEY (
+			admin -- admin
+		);
+
 -- 대출정보
 ALTER TABLE LibraryManagement.rentinfo
 	ADD CONSTRAINT FK_bookInfo_TO_rentinfo -- 도서정보 -> 대출정보
@@ -114,11 +143,3 @@ ALTER TABLE LibraryManagement.bookInfo
 		REFERENCES LibraryManagement.bookcategory ( -- 도서구분
 			categoryno -- 구분번호
 		);
-	
-
-grant all on librarymanagement.* to 'user_librarymanagement'@'localhost' identified by 'rootroot';
-
-create view vw_book_categoryname
-as select b.bookno, booktitle, rentYN, b.categoryno, count, totalcount , c.bookcategory
-from bookinfo b join bookcategory c on b.categoryno  = c.categoryno;
-

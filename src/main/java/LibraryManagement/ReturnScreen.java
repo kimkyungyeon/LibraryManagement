@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import LibraryManagement.panel.main.BookInfoTablePanel;
+import LibraryManagement.panel.main.pMembInfoTablePanel;
 import LibraryManagement.panel.returnscreen.pMembInfoTable;
 import LibraryManagement.panel.returnscreen.pMembSearch;
 import LibraryManagement.panel.returnscreen.pRentInfoTable;
@@ -30,6 +32,7 @@ public class ReturnScreen extends JFrame implements ActionListener {
 	private ReturnScreenService service;
 	private pRentInfoTable pRentTable3;
 	private pReturnBookDetail pRentDetail3;
+	private BookInfoTablePanel pBookTablePanel;
 	private JButton btnClear;
 	private JButton btnReturn;
 	private static LibraryManagementMain main;
@@ -49,6 +52,10 @@ public class ReturnScreen extends JFrame implements ActionListener {
 //	}
 
 	
+	public void setpBookTablePanel(BookInfoTablePanel pBookTablePanel) {
+		this.pBookTablePanel = pBookTablePanel;
+	}
+
 	public pReturnMembDetail getpMembDetail3() {
 		return pMembDetail3;
 	}
@@ -162,11 +169,11 @@ public class ReturnScreen extends JFrame implements ActionListener {
 		try {
 			service.returnBookTransaction(pRentTable3.getRentNo());
 			JOptionPane.showMessageDialog(null, 
-					pMembDetail3.getMembNo().getMembno()+" 회원의  "+ pRentDetail3.getBookNo().getBookNo().getBookNo()+"도서 반납이 완료되었습니다." );
+			pMembDetail3.getMembNo().getMembno()+" 회원의  "+ pRentDetail3.getBookNo().getBookNo().getBookNo()+"도서 반납이 완료되었습니다." );
 			
 			pRentTable3.selectRentInfoByMembNo(pMembDetail3.getMembNo());
 			pRentTable3.setList();
-			
+			pBookTablePanel.loadData();
 		} catch (NullPointerException e1) {
 			pRentTable3.initList();
 			pRentTable3.setList();

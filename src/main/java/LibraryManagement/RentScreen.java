@@ -11,12 +11,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import LibraryManagement.panel.main.BookInfoTablePanel;
+import LibraryManagement.panel.main.pMembInfoTablePanel;
 import LibraryManagement.panel.rentScreen.pBookInfoTable;
 import LibraryManagement.panel.rentScreen.pBookSearch;
 import LibraryManagement.panel.rentScreen.pMembInfoTable;
 import LibraryManagement.panel.rentScreen.pMembSearch;
 import LibraryManagement.panel.rentScreen.pRentBookDetail;
 import LibraryManagement.panel.rentScreen.pRentMembDetail;
+import LibraryManagement.service.MainService;
 import LibraryManagement.service.RentScreenService;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -25,6 +28,7 @@ import java.awt.event.ActionEvent;
 public class RentScreen extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
+	private MainService service1;
 	private RentScreenService service;
 	private pRentMembDetail pMembDetail;
 	private pMembInfoTable pMembTable;
@@ -34,6 +38,8 @@ public class RentScreen extends JFrame implements ActionListener {
 	private pRentBookDetail pBookDetail;
 	private JButton btnRent;
 	private JButton btnCancel;
+	private pMembInfoTablePanel pMembTablePanel;
+	private BookInfoTablePanel pBookTablePanel;
 	
 	
 	
@@ -51,6 +57,15 @@ public class RentScreen extends JFrame implements ActionListener {
 //	}
 
 	
+	public void setpBookTablePanel(BookInfoTablePanel pBookTablePanel) {
+		this.pBookTablePanel = pBookTablePanel;
+	}
+	public pMembInfoTablePanel getpMembTablePanel() {
+		return pMembTablePanel;
+	}
+	public void setpMembTablePanel(pMembInfoTablePanel pMembTablePanel) {
+		this.pMembTablePanel = pMembTablePanel;
+	}
 	public pRentMembDetail getpMembDetail() {
 		return pMembDetail;
 	}
@@ -136,6 +151,7 @@ public class RentScreen extends JFrame implements ActionListener {
 		pBookDetail = pBookTable.getBookDetail();
 		pRentCenter.add(pBookDetail);
 		
+		
 		////////////////////////////////////////////////////////////////////////////////////
 		
 		JPanel pRentSouth = new JPanel();
@@ -178,4 +194,5 @@ public class RentScreen extends JFrame implements ActionListener {
 		pBookDetail.clearTf();
 		
 	}
+
 }

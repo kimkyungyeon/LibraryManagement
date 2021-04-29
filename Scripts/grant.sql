@@ -1,0 +1,1 @@
+grant all on librarymanagement.* to 'user_librarymanagement'@'localhost' identified by 'rootroot';

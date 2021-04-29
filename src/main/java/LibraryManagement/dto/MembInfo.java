@@ -3,10 +3,6 @@ package LibraryManagement.dto;
 import java.util.Date;
 
 public class MembInfo {
-
-
-
-
 	int membNo;
 	String membAccount;
 	String membName;
@@ -23,7 +19,21 @@ public class MembInfo {
 	
 	
 	
-	
+
+
+
+
+	public MembInfo(int membNo, String membName) {
+		this.membNo = membNo;
+		this.membName = membName;
+	}
+
+
+
+
+
+
+
 	public void setMembNo(int membNo) {
 		this.membNo = membNo;
 	}

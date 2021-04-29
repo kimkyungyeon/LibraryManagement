@@ -1,3 +1,5 @@
+select * from adminTable;
+insert into adminTable values('admin', password('rootroot'));
 
 insert into bookcategory values (1,'수학'),(2,'컴퓨터'),(3,'전자'),(4,'통계');
 select * from bookinfo b2 ;
@@ -25,18 +27,17 @@ insert into membinfo values
 (12008,'esryu','류은수',19830301,'062-233-1122','010-7444-1474','광주'),
 (12009,'dckim','김동철',19870426,'061-887-4454','010-8525-1235','순천'),
 (12010,'hschoi','최홍석',19900405,'054-555-7897','010-3214-6547','포항'),
-(12011,'dskim','김동수',19830108,'043-529-8457','010-9566-4228','제천');
+(12011,'dskim2','김동수',19830108,'043-529-8457','010-9566-4228','제천');
 
 select * from bookinfo;
 select * from bookcategory b ;
 select * from membinfo;
 update rentinfo set returndate = now() where rentno = 1 returndate is null;
 select * from rentinfo;
-
-create view vw_book_rentcategoryname
+   
+create view vw_book_categoryname
 as select b.bookno, booktitle, rentYN, b.categoryno, count, totalcount , c.bookcategory
-from bookinfo b join bookcategory c on b.categoryno  = c.categoryno
-				join rentinfo r on b.bookno = r.bookno;
+from bookinfo b join bookcategory c on b.categoryno  = c.categoryno;
   
 select * from vw_book_categoryname;
 select * from bookinfo;
@@ -48,4 +49,11 @@ from rentinfo r  join bookinfo b on r.bookno = b.bookno
 				 join bookcategory c on b.categoryno = c.categoryno ;
 				
 select * from vw_rentall;
-				
+
+create view vw_rentbookinfo
+as;
+select r.bookno , b.booktitle ,b.count,b.totalcount ,r.overdate ,r.rentdate ,r.membno , m.membName ,c.bookcategory 
+from rentinfo r join bookinfo b on r.bookno  = b.bookno 
+				join membinfo m on r.membno = m.membno
+				join bookcategory c on b.categoryno  = c.categoryno ;
+

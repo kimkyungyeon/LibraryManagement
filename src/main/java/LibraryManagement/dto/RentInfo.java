@@ -3,7 +3,27 @@ package LibraryManagement.dto;
 import java.util.Date;
 
 public class RentInfo {
-	   private int rentNo;
+		private int count;
+
+	public int getCount() {
+			return count;
+		}
+
+
+		public void setCount(int count) {
+			this.count = count;
+		}
+		
+		
+
+	public RentInfo(int count, MembInfo membNo) {
+			this.count = count;
+			this.membNo = membNo;
+		}
+
+
+
+	private int rentNo;
 	   private MembInfo membNo;
 	   private BookInfo bookNo;
 	   private Date rentDate;
@@ -17,6 +37,15 @@ public class RentInfo {
 	   
 	public RentInfo(int rentNo, BookInfo bookNo) {
 		this.rentNo = rentNo;
+		this.bookNo = bookNo;
+	}
+	
+	
+
+
+	public RentInfo(int count, MembInfo membNo, BookInfo bookNo) {
+		this.count = count;
+		this.membNo = membNo;
 		this.bookNo = bookNo;
 	}
 
@@ -46,6 +75,17 @@ public class RentInfo {
 		this.overDate = overDate;
 	}
 
+	public RentInfo(int count, int rentNo, MembInfo membNo, BookInfo bookNo, Date rentDate, Date returnDate,
+			int overDate) {
+		this.count = count;
+		this.rentNo = rentNo;
+		this.membNo = membNo;
+		this.bookNo = bookNo;
+		this.rentDate = rentDate;
+		this.returnDate = returnDate;
+		this.overDate = overDate;
+	}
+	
 	public int getRentNo() {
 		return rentNo;
 	}

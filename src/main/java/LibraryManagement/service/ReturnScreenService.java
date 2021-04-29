@@ -72,6 +72,14 @@ public class ReturnScreenService {
 		return rentDao.selectRentInfoByMembNo(membInfo);
 	}
 	
+	public List<RentInfo> showRentInfoCount() {
+		return rentDao.selectRentInfoCount();
+	}
+	
+	public List<RentInfo> showRentInfoBookCount(){
+		return rentDao.selectRentInfoBookCount();
+	}
+	
 	public RentInfo showRentInfoByRentNo(RentInfo rentInfo) {
 		return rentDao.selectRentInfoByRentNo(rentInfo);
 	}

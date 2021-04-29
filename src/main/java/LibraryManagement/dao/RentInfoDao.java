@@ -11,6 +11,8 @@ public interface RentInfoDao {
 	RentInfo selectRentInfoByRentNo(RentInfo rentInfo);
 	List<RentInfo> selectRentInfoByMembNo(MembInfo membInfo);
 	List<RentInfo> selectRentInfoByBookNo(BookInfo bookInfo);
+	List<RentInfo> selectRentInfoCount();
+	List<RentInfo> selectRentInfoBookCount();
 	
 	int insertRentInfo(RentInfo rentInfo);
 	int updateRentInfo(RentInfo rentInfo);

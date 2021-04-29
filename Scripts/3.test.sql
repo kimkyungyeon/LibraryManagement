@@ -1,4 +1,20 @@
 select * from membinfo;
+select * from bookinfo;
+select * from bookcategory b2 ;
+select * from rentinfo r2 ;
+select * from vw_book_categoryname vbc ;
+
+select admin, passwd from adminTable where admin = 'admin' and passwd = password('rootroot');
+
+select admin, passwd 
+from adminTable 
+where admin = admin and passwd = password('rootroot');
+
+select * from admintable ;
+
+select * from admintable where passwd = password('rootroot'); 
+
+desc membinfo ;
 -- membinfo insert 테스트
 insert into membinfo (membaccount, membname, membbirth, membtel, membphone, membaddr) values ('kykim', '김경연', '19940801','053-323-1241','010-6510-7277','대구');
 delete from membinfo where membname ='김경연';
@@ -83,3 +99,6 @@ select * from bookInfo;
 select * from bookcategory b ;
 
 update membinfo set membaccount = 'kskim'  where membno = 12013;
+
+
+select * from rentinfo;
