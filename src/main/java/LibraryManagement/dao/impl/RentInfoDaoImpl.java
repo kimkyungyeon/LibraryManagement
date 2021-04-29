@@ -201,7 +201,7 @@ public class RentInfoDaoImpl implements RentInfoDao {
 		String sql = "SELECT count(*), b.booktitle , b.bookno " + 
 				"FROM bookinfo b JOIN rentinfo r ON b.bookno = r.bookno " + 
 				"join bookcategory c  on b.categoryno = c.categoryno " + 
-				"join membinfo m  on r.membno =m.membno group by b.bookNo order by count(*) desc limit 5 ";
+				"join membinfo m  on r.membno =m.membno group by b.bookNo order by count(*) desc limit 5  ";
 		try (Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
