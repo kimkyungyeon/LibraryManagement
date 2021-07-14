@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import LibraryManagement.panel.main.BookInfoTablePanel;
-import LibraryManagement.panel.main.pMembInfoTablePanel;
+import LibraryManagement.panel.rentScreen.pBookInfoTable;
 import LibraryManagement.panel.returnscreen.pMembInfoTable;
 import LibraryManagement.panel.returnscreen.pMembSearch;
 import LibraryManagement.panel.returnscreen.pRentInfoTable;
@@ -32,10 +32,11 @@ public class ReturnScreen extends JFrame implements ActionListener {
 	private ReturnScreenService service;
 	private pRentInfoTable pRentTable3;
 	private pReturnBookDetail pRentDetail3;
-	private BookInfoTablePanel pBookTablePanel;
 	private JButton btnClear;
 	private JButton btnReturn;
 	private static LibraryManagementMain main;
+	private pBookInfoTable pBookTable;
+	private BookInfoTablePanel pBookTablePanel;
 	
 
 //	public static void main(String[] args) {
@@ -174,6 +175,7 @@ public class ReturnScreen extends JFrame implements ActionListener {
 			pRentTable3.selectRentInfoByMembNo(pMembDetail3.getMembNo());
 			pRentTable3.setList();
 			pBookTablePanel.loadData();
+			
 		} catch (NullPointerException e1) {
 			pRentTable3.initList();
 			pRentTable3.setList();

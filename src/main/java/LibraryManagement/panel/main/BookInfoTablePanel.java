@@ -17,16 +17,19 @@ import LibraryManagement.dto.BookCategory;
 import LibraryManagement.dto.BookInfo;
 import LibraryManagement.exception.NotSelectedException;
 import LibraryManagement.panel.AbstractCustomTablePanel;
+import LibraryManagement.panel.rentScreen.pBookInfoTable;
 import LibraryManagement.service.MainService;
 
 public class BookInfoTablePanel extends AbstractCustomTablePanel<BookInfo> implements MouseListener {
+	private MainService service;
+	private pBookInfoTable rentBookTable;
+	
 	public BookInfoTablePanel() {
 		initialize();
 	}
 	private void initialize() {
 		table.addMouseListener(this);
 	}
-	private MainService service;
 
 	@Override
 	public void initList() {
@@ -127,8 +130,10 @@ public class BookInfoTablePanel extends AbstractCustomTablePanel<BookInfo> imple
 		RentScreen frame = new RentScreen();
 		BookInfo selectedBookInfo = service.showBookInfoByNo(new BookInfo(bookNo)).get(0);
 		frame.getpBookTable().setItem(selectedBookInfo);
+		
 		frame.getpBookTable().searchBookNo(new BookInfo(bookNo));
 		frame.setVisible(true);
+		frame.setpBookTable(rentBookTable);
 	}
 	public void mouseEntered(MouseEvent e) {
 	}

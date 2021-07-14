@@ -18,6 +18,7 @@ import LibraryManagement.dto.MembInfo;
 import LibraryManagement.dto.RentInfo;
 import LibraryManagement.exception.NotSelectedException;
 import LibraryManagement.panel.AbstractCustomTablePanel;
+import LibraryManagement.panel.rentScreen.pBookInfoTable;
 import LibraryManagement.panel.returnscreen.pReturnMembDetail;
 import LibraryManagement.service.MainService;
 import LibraryManagement.service.ReturnScreenService;
@@ -26,6 +27,8 @@ public class RentInfoTablePanel extends AbstractCustomTablePanel<RentInfo> imple
 	private MainService service;
 	private ReturnScreenService returnService = new ReturnScreenService();
 	private pReturnMembDetail returnMembDetail;    
+	private pBookInfoTable rentBookTable;
+	
 	
 	
 	public RentInfoTablePanel() {
